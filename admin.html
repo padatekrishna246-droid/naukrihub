@@ -1,0 +1,3302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NaukriHub Admin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    color:#172033;
+}
+
+/* ================= LOGIN ================= */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-box{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    padding:35px;
+    border-radius:16px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.logo span,
+.admin-logo span{
+    color:#2563eb;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:#737d8f;
+    margin-bottom:30px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:600;
+    font-size:14px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #dce1ea;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+    background:white;
+}
+
+textarea{
+    resize:vertical;
+    min-height:120px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#2563eb;
+}
+
+.login-btn,
+.save-btn,
+.add-btn,
+.approve-btn,
+.reject-btn,
+.details-btn{
+    border:none;
+    color:white;
+    padding:11px 17px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.login-btn,
+.save-btn,
+.add-btn{
+    background:#2563eb;
+}
+
+.login-btn{
+    width:100%;
+}
+
+.login-btn:hover,
+.save-btn:hover,
+.add-btn:hover{
+    background:#1d4ed8;
+}
+
+.approve-btn{
+    background:#16a34a;
+}
+
+.approve-btn:hover{
+    background:#15803d;
+}
+
+.reject-btn{
+    background:#dc2626;
+}
+
+.reject-btn:hover{
+    background:#b91c1c;
+}
+
+.details-btn{
+    background:#475569;
+}
+
+.details-btn:hover{
+    background:#334155;
+}
+
+.error{
+    color:#dc2626;
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+    display:none;
+}
+
+/* ================= ADMIN PAGE ================= */
+
+.admin-page{
+    display:none;
+}
+
+.header{
+    min-height:70px;
+    background:white;
+    border-bottom:1px solid #e5e8ef;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.admin-logo{
+    font-size:24px;
+    font-weight:800;
+}
+
+.logout-btn{
+    border:none;
+    background:#fff1f2;
+    color:#dc2626;
+    padding:10px 16px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.container{
+    width:min(1100px,92%);
+    margin:35px auto;
+}
+
+.welcome{
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:30px;
+    margin-bottom:5px;
+}
+
+.welcome p{
+    color:#737d8f;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    border:1px solid #e5e8ef;
+}
+
+.stat-card strong{
+    display:block;
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.stat-card span{
+    color:#737d8f;
+    font-size:14px;
+}
+
+/* ================= SECTIONS ================= */
+
+.section{
+    margin-bottom:35px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-size:23px;
+}
+
+.badge{
+    background:#fef3c7;
+    color:#92400e;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.approved-badge{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.rejected-badge{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+/* ================= JOB LIST ================= */
+
+.jobs-list{
+    display:grid;
+    gap:12px;
+}
+
+.job-item{
+    background:white;
+    border:1px solid #e5e8ef;
+    padding:20px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.job-item h3{
+    margin-bottom:7px;
+    font-size:18px;
+}
+
+.job-item p{
+    color:#737d8f;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.job-status{
+    display:inline-block;
+    margin-top:10px;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.status-approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.status-rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.job-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.edit-btn,
+.delete-btn{
+    border:none;
+    padding:9px 14px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.edit-btn{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.delete-btn{
+    background:#fff1f2;
+    color:#dc2626;
+}
+
+/* ================= FORM ================= */
+
+#addJobForm{
+    display:none;
+    background:white;
+    padding:28px;
+    border-radius:12px;
+    border:1px solid #e5e8ef;
+    margin-top:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.04);
+}
+
+#addJobForm h2{
+    margin-bottom:22px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.cancel-btn{
+    background:#eee;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-content{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:14px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-header button{
+    border:none;
+    background:#f1f5f9;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.details-content h2{
+    margin-bottom:7px;
+}
+
+.details-content h3{
+    color:#475569;
+    margin-bottom:18px;
+}
+
+.details-content p{
+    line-height:1.7;
+    margin-bottom:10px;
+}
+
+.details-description{
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px solid #e5e7eb;
+}
+
+.details-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .job-item{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .job-actions{
+        width:100%;
+        justify-content:flex-start;
+    }
+
+    .job-actions button{
+        flex:1;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        padding:0 20px;
+    }
+
+    .admin-logo{
+        font-size:19px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+     ===================================================== -->
+
+<div
+    class="login-page"
+    id="loginPage"
+>
+
+    <div class="login-box">
+
+        <div class="logo">
+            <span>Naukri</span>Hub
+        </div>
+
+        <p class="login-subtitle">
+            Admin Panel
+        </p>
+
+
+        <div class="form-group">
+
+            <label>
+                Admin Email
+            </label>
+
+            <input
+                type="email"
+                id="username"
+                placeholder="Enter admin email"
+                autocomplete="username"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter admin password"
+                autocomplete="current-password"
+            >
+
+        </div>
+
+
+        <button
+            class="login-btn"
+            id="loginButton"
+        >
+            Login
+        </button>
+
+
+        <p
+            class="error"
+            id="loginError"
+        >
+            Invalid admin email or password.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+     ===================================================== -->
+
+<div
+    class="admin-page"
+    id="adminPage"
+>
+
+<header class="header">
+
+    <div class="admin-logo">
+        <span>Naukri</span>Hub Admin
+    </div>
+
+
+    <button
+        class="logout-btn"
+        id="logoutButton"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="welcome">
+
+        <h1>
+            Dashboard
+        </h1>
+
+        <p>
+            Manage NaukriHub job listings and approvals.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         STATS
+         ================================================= -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <strong
+                id="totalJobs"
+            >
+                0
+            </strong>
+
+            <span>
+                Total Jobs
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <strong
+                id="pendingJobs"
+            >
+                0
+            </strong>
+
+            <span>
+                Pending Jobs
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <strong
+                id="approvedJobs"
+            >
+                0
+            </strong>
+
+            <span>
+                Approved Jobs
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <strong
+                id="rejectedJobs"
+            >
+                0
+            </strong>
+
+            <span>
+                Rejected Jobs
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PENDING JOBS
+         ================================================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                🟡 Pending Jobs
+            </h2>
+
+            <span
+                class="badge"
+                id="pendingBadge"
+            >
+                0 Pending
+            </span>
+
+        </div>
+
+
+        <div
+            class="jobs-list"
+            id="pendingJobsList"
+        ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         APPROVED JOBS
+         ================================================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                ✅ Approved Jobs
+            </h2>
+
+            <span
+                class="badge approved-badge"
+                id="approvedBadge"
+            >
+                0 Approved
+            </span>
+
+        </div>
+
+
+        <div
+            class="jobs-list"
+            id="approvedJobsList"
+        ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         REJECTED JOBS
+         ================================================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                ❌ Rejected Jobs
+            </h2>
+
+            <span
+                class="badge rejected-badge"
+                id="rejectedBadge"
+            >
+                0 Rejected
+            </span>
+
+        </div>
+
+
+        <div
+            class="jobs-list"
+            id="rejectedJobsList"
+        ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         ADMIN JOB MANAGEMENT
+         ================================================= -->
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <h2>
+                Admin Job Management
+            </h2>
+
+
+            <button
+                class="add-btn"
+                id="addButton"
+            >
+                + Add Job
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ADD / EDIT JOB FORM
+         ================================================= -->
+
+    <div
+        id="addJobForm"
+    >
+
+        <h2
+            id="formTitle"
+        >
+            Add New Job
+        </h2>
+
+
+        <div class="form-group">
+
+            <label>
+                Job Title *
+            </label>
+
+            <input
+                type="text"
+                id="jobTitle"
+                placeholder="Quality Engineer"
+            >
+
+        </div>
+
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label>
+                    Company Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="jobCompany"
+                    placeholder="ABC Manufacturing"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location *
+                </label>
+
+                <input
+                    type="text"
+                    id="jobLocation"
+                    placeholder="Goa"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label>
+                    Category *
+                </label>
+
+                <select
+                    id="jobCategory"
+                >
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Quality">
+                        Quality
+                    </option>
+
+                    <option value="Production">
+                        Production
+                    </option>
+
+                    <option value="Mechanical">
+                        Mechanical
+                    </option>
+
+                    <option value="IT">
+                        IT & Software
+                    </option>
+
+                    <option value="Sales">
+                        Sales
+                    </option>
+
+                    <option value="Engineering">
+                        Engineering
+                    </option>
+
+                    <option value="HR">
+                        Human Resources
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Experience *
+                </label>
+
+                <select
+                    id="jobExperience"
+                >
+
+                    <option value="">
+                        Select Experience
+                    </option>
+
+                    <option value="Fresher">
+                        Fresher
+                    </option>
+
+                    <option value="1-3">
+                        1-3 Years
+                    </option>
+
+                    <option value="3-5">
+                        3-5 Years
+                    </option>
+
+                    <option value="5+">
+                        5+ Years
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="form-row">
+
+
+            <div class="form-group">
+
+                <label>
+                    Job Type *
+                </label>
+
+                <select
+                    id="jobType"
+                >
+
+                    <option value="Full Time">
+                        Full Time
+                    </option>
+
+                    <option value="Part Time">
+                        Part Time
+                    </option>
+
+                    <option value="Remote">
+                        Remote
+                    </option>
+
+                    <option value="Contract">
+                        Contract
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Salary
+                </label>
+
+                <input
+                    type="text"
+                    id="jobSalary"
+                    placeholder="₹25,000 - ₹40,000"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Job Description *
+            </label>
+
+            <textarea
+                id="jobDescription"
+                placeholder="Enter job description..."
+            ></textarea>
+
+        </div>
+
+
+        <!-- =================================================
+             APPLICATION OPTIONS
+             ================================================= -->
+
+        <div class="form-group">
+
+            <label>
+                Apply URL (Optional)
+            </label>
+
+            <input
+                type="url"
+                id="jobApplyUrl"
+                placeholder="https://example.com/apply"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Application Email (Optional)
+            </label>
+
+            <input
+                type="email"
+                id="jobApplyEmail"
+                placeholder="hr@example.com"
+            >
+
+        </div>
+
+
+        <p
+            style="
+                color:#737d8f;
+                font-size:13px;
+                margin-top:-8px;
+                margin-bottom:18px;
+            "
+        >
+            At least one application method is required:
+            Apply URL or Application Email.
+        </p>
+
+
+        <div class="form-buttons">
+
+            <button
+                class="save-btn"
+                id="saveJobButton"
+            >
+                Save Job
+            </button>
+
+
+            <button
+                class="cancel-btn"
+                id="cancelButton"
+            >
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     DETAILS MODAL
+     ===================================================== -->
+
+<div
+    class="modal"
+    id="detailsModal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Job Details
+            </h2>
+
+            <button
+                id="closeDetailsButton"
+                type="button"
+                onclick="closeDetails()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="detailsContent"
+            class="details-content"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE ADMIN SCRIPT
+     ===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    deleteDoc,
+    updateDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+import {
+    initializeAuth,
+    browserSessionPersistence,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+// =====================================================
+// FIREBASE CONFIG
+// =====================================================
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAQQOINfCPq651OmGSvl5mIVz5dfk1P54Q",
+
+    authDomain:
+        "naukrihub-61299.firebaseapp.com",
+
+    projectId:
+        "naukrihub-61299",
+
+    storageBucket:
+        "naukrihub-61299.firebasestorage.app",
+
+    messagingSenderId:
+        "1094751577774",
+
+    appId:
+        "1:1094751577774:web:ed1673ac88629aafaeaf3f",
+
+    measurementId:
+        "G-3307PZE918"
+};
+
+
+// =====================================================
+// SEPARATE ADMIN FIREBASE APP
+// =====================================================
+
+const adminApp =
+    initializeApp(
+        firebaseConfig,
+        "NaukriHubAdmin"
+    );
+
+
+// =====================================================
+// ADMIN AUTH
+// SESSION = CURRENT BROWSER TAB
+// =====================================================
+
+const adminAuth =
+    initializeAuth(
+        adminApp,
+        {
+            persistence:
+                browserSessionPersistence
+        }
+    );
+
+
+// =====================================================
+// FIRESTORE
+// =====================================================
+
+const db =
+    getFirestore(
+        adminApp
+    );
+
+
+const jobsRef =
+    collection(
+        db,
+        "jobs"
+    );
+
+
+// =====================================================
+// STATE
+// =====================================================
+
+let editingId =
+    null;
+
+let allAdminJobs =
+    [];
+
+
+// =====================================================
+// ADMIN LOGIN
+// =====================================================
+
+document
+.getElementById(
+    "loginButton"
+)
+.onclick =
+async function(){
+
+    const email =
+        document
+        .getElementById(
+            "username"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const password =
+        document
+        .getElementById(
+            "password"
+        )
+        .value;
+
+
+    const error =
+        document
+        .getElementById(
+            "loginError"
+        );
+
+
+    if(
+        !email ||
+        !password
+    ){
+
+        error.textContent =
+            "Please enter email and password.";
+
+        error.style.display =
+            "block";
+
+        return;
+    }
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+            adminAuth,
+            email,
+            password
+        );
+
+
+        error.textContent =
+            "";
+
+        error.style.display =
+            "none";
+
+
+    }catch(err){
+
+        console.error(
+            "Admin login error:",
+            err
+        );
+
+
+        error.textContent =
+            "Invalid admin email or password.";
+
+        error.style.display =
+            "block";
+    }
+
+};
+
+
+// =====================================================
+// ADMIN AUTH STATE
+// =====================================================
+
+onAuthStateChanged(
+    adminAuth,
+    async function(user){
+
+        if(!user){
+
+            document
+            .getElementById(
+                "loginPage"
+            )
+            .style.display =
+                "flex";
+
+
+            document
+            .getElementById(
+                "adminPage"
+            )
+            .style.display =
+                "none";
+
+
+            return;
+        }
+
+
+        // =================================================
+        // CHECK USER DOCUMENT ROLE
+        // =================================================
+
+        try{
+
+            const userDoc =
+                await getDoc(
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    )
+                );
+
+
+            if(
+                !userDoc.exists()
+            ){
+
+                await signOut(
+                    adminAuth
+                );
+
+
+                const error =
+                    document
+                    .getElementById(
+                        "loginError"
+                    );
+
+
+                error.textContent =
+                    "This account is not authorized as admin.";
+
+                error.style.display =
+                    "block";
+
+
+                return;
+            }
+
+
+            const userData =
+                userDoc.data();
+
+
+            if(
+                userData.role !==
+                "admin"
+            ){
+
+                await signOut(
+                    adminAuth
+                );
+
+
+                const error =
+                    document
+                    .getElementById(
+                        "loginError"
+                    );
+
+
+                error.textContent =
+                    "This account is not authorized as admin.";
+
+                error.style.display =
+                    "block";
+
+
+                return;
+            }
+
+
+        }catch(error){
+
+            console.error(
+                "Admin role check error:",
+                error
+            );
+
+
+            await signOut(
+                adminAuth
+            );
+
+
+            const loginError =
+                document
+                .getElementById(
+                    "loginError"
+                );
+
+
+            loginError.textContent =
+                "Unable to verify admin access.";
+
+            loginError.style.display =
+                "block";
+
+
+            return;
+        }
+
+
+        // =================================================
+        // ADMIN LOGIN SUCCESS
+        // =================================================
+
+        document
+        .getElementById(
+            "loginPage"
+        )
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById(
+            "adminPage"
+        )
+        .style.display =
+            "block";
+
+
+        document
+        .getElementById(
+            "loginError"
+        )
+        .style.display =
+            "none";
+
+
+        await loadJobs();
+
+    }
+);
+
+
+// =====================================================
+// ADMIN LOGOUT
+// =====================================================
+
+document
+.getElementById(
+    "logoutButton"
+)
+.onclick =
+async function(){
+
+    try{
+
+        await signOut(
+            adminAuth
+        );
+
+    }catch(error){
+
+        console.error(
+            "Admin logout error:",
+            error
+        );
+
+    }
+
+};
+
+
+// =====================================================
+// LOAD JOBS
+// =====================================================
+
+async function loadJobs(){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                jobsRef
+            );
+
+
+        allAdminJobs =
+            [];
+
+
+        snapshot.forEach(
+            function(item){
+
+                allAdminJobs.push({
+
+                    id:
+                        item.id,
+
+                    ...item.data()
+
+                });
+
+            }
+        );
+
+
+        showJobs();
+
+
+    }catch(error){
+
+        console.error(
+            "Load jobs error:",
+            error
+        );
+
+
+        alert(
+            "Unable to load jobs: " +
+            error.message
+        );
+    }
+
+}
+
+
+// =====================================================
+// SHOW JOBS
+// =====================================================
+
+function showJobs(){
+
+    const pending =
+        allAdminJobs.filter(
+            job =>
+                String(
+                    job.status ||
+                    "approved"
+                )
+                .trim()
+                .toLowerCase()
+                ===
+                "pending"
+        );
+
+
+    const approved =
+        allAdminJobs.filter(
+            job =>
+                String(
+                    job.status ||
+                    "approved"
+                )
+                .trim()
+                .toLowerCase()
+                ===
+                "approved"
+        );
+
+
+    const rejected =
+        allAdminJobs.filter(
+            job =>
+                String(
+                    job.status ||
+                    ""
+                )
+                .trim()
+                .toLowerCase()
+                ===
+                "rejected"
+        );
+
+
+    document
+    .getElementById(
+        "totalJobs"
+    )
+    .textContent =
+        allAdminJobs.length;
+
+
+    document
+    .getElementById(
+        "pendingJobs"
+    )
+    .textContent =
+        pending.length;
+
+
+    document
+    .getElementById(
+        "approvedJobs"
+    )
+    .textContent =
+        approved.length;
+
+
+    document
+    .getElementById(
+        "rejectedJobs"
+    )
+    .textContent =
+        rejected.length;
+
+
+    document
+    .getElementById(
+        "pendingBadge"
+    )
+    .textContent =
+        `${pending.length} Pending`;
+
+
+    document
+    .getElementById(
+        "approvedBadge"
+    )
+    .textContent =
+        `${approved.length} Approved`;
+
+
+    document
+    .getElementById(
+        "rejectedBadge"
+    )
+    .textContent =
+        `${rejected.length} Rejected`;
+
+
+    renderJobList(
+        pending,
+        "pendingJobsList",
+        "pending"
+    );
+
+
+    renderJobList(
+        approved,
+        "approvedJobsList",
+        "approved"
+    );
+
+
+    renderJobList(
+        rejected,
+        "rejectedJobsList",
+        "rejected"
+    );
+
+}
+
+
+// =====================================================
+// RENDER JOB LIST
+// =====================================================
+
+function renderJobList(
+    jobs,
+    elementId,
+    type
+){
+
+    const list =
+        document
+        .getElementById(
+            elementId
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    if(
+        jobs.length ===
+        0
+    ){
+
+        list.innerHTML = `
+
+            <div class="job-item">
+
+                <p>
+                    No ${type} jobs.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    jobs.forEach(
+        function(job){
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "job-item";
+
+
+            const status =
+                String(
+                    job.status ||
+                    "approved"
+                )
+                .trim()
+                .toLowerCase();
+
+
+            let actions = `
+
+                <button
+                    class="details-btn"
+                    data-details-id="${job.id}"
+                >
+                    View Details
+                </button>
+
+            `;
+
+
+            if(
+                type ===
+                "pending"
+            ){
+
+                actions += `
+
+                    <button
+                        class="approve-btn"
+                        data-approve-id="${job.id}"
+                    >
+                        ✓ Approve
+                    </button>
+
+                    <button
+                        class="reject-btn"
+                        data-reject-id="${job.id}"
+                    >
+                        ✕ Reject
+                    </button>
+
+                `;
+            }
+
+
+            if(
+                type ===
+                "approved"
+            ){
+
+                actions += `
+
+                    <button
+                        class="edit-btn"
+                        data-edit-id="${job.id}"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        data-delete-id="${job.id}"
+                    >
+                        Delete
+                    </button>
+
+                `;
+            }
+
+
+            if(
+                type ===
+                "rejected"
+            ){
+
+                actions += `
+
+                    <button
+                        class="approve-btn"
+                        data-approve-id="${job.id}"
+                    >
+                        ✓ Approve
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        data-delete-id="${job.id}"
+                    >
+                        Delete
+                    </button>
+
+                `;
+            }
+
+
+            item.innerHTML = `
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(
+                            job.title
+                        )}
+                    </h3>
+
+
+                    <p>
+
+                        ${escapeHTML(
+                            job.company
+                        )}
+
+                        •
+
+                        ${escapeHTML(
+                            job.location
+                        )}
+
+                        •
+
+                        ${escapeHTML(
+                            job.category
+                        )}
+
+                        •
+
+                        ${escapeHTML(
+                            job.experience
+                        )}
+
+                        •
+
+                        ${escapeHTML(
+                            job.type
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        💰
+
+                        ${escapeHTML(
+                            job.salary ||
+                            "Salary not disclosed"
+                        )}
+
+                    </p>
+
+
+                    <span
+                        class="job-status status-${status}"
+                    >
+
+                        ${status.toUpperCase()}
+
+                    </span>
+
+                </div>
+
+
+                <div class="job-actions">
+
+                    ${actions}
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    list
+    .querySelectorAll(
+        "[data-details-id]"
+    )
+    .forEach(
+        button => {
+
+            button.onclick =
+            function(){
+
+                viewDetails(
+                    button.dataset.detailsId
+                );
+
+            };
+
+        }
+    );
+
+
+    list
+    .querySelectorAll(
+        "[data-approve-id]"
+    )
+    .forEach(
+        button => {
+
+            button.onclick =
+            function(){
+
+                approveJob(
+                    button.dataset.approveId
+                );
+
+            };
+
+        }
+    );
+
+
+    list
+    .querySelectorAll(
+        "[data-reject-id]"
+    )
+    .forEach(
+        button => {
+
+            button.onclick =
+            function(){
+
+                rejectJob(
+                    button.dataset.rejectId
+                );
+
+            };
+
+        }
+    );
+
+
+    list
+    .querySelectorAll(
+        "[data-edit-id]"
+    )
+    .forEach(
+        button => {
+
+            button.onclick =
+            function(){
+
+                editJob(
+                    button.dataset.editId
+                );
+
+            };
+
+        }
+    );
+
+
+    list
+    .querySelectorAll(
+        "[data-delete-id]"
+    )
+    .forEach(
+        button => {
+
+            button.onclick =
+            function(){
+
+                deleteJob(
+                    button.dataset.deleteId
+                );
+
+            };
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// VIEW DETAILS
+// =====================================================
+
+function viewDetails(id){
+
+    const job =
+        allAdminJobs.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                String(id)
+        );
+
+
+    if(!job){
+
+        alert(
+            "Job not found."
+        );
+
+        return;
+    }
+
+
+    const content =
+        document
+        .getElementById(
+            "detailsContent"
+        );
+
+
+    content.innerHTML = `
+
+        <h2>
+            ${escapeHTML(
+                job.title
+            )}
+        </h2>
+
+
+        <h3>
+            ${escapeHTML(
+                job.company
+            )}
+        </h3>
+
+
+        <p>
+
+            📍
+            <strong>
+                Location:
+            </strong>
+
+            ${escapeHTML(
+                job.location
+            )}
+
+        </p>
+
+
+        <p>
+
+            💼
+            <strong>
+                Category:
+            </strong>
+
+            ${escapeHTML(
+                job.category
+            )}
+
+        </p>
+
+
+        <p>
+
+            🎓
+            <strong>
+                Experience:
+            </strong>
+
+            ${escapeHTML(
+                job.experience
+            )}
+
+        </p>
+
+
+        <p>
+
+            🕐
+            <strong>
+                Job Type:
+            </strong>
+
+            ${escapeHTML(
+                job.type
+            )}
+
+        </p>
+
+
+        <p>
+
+            💰
+            <strong>
+                Salary:
+            </strong>
+
+            ${escapeHTML(
+                job.salary ||
+                "Salary not disclosed"
+            )}
+
+        </p>
+
+
+        <div class="details-description">
+
+            <h3>
+                Job Description
+            </h3>
+
+
+            <p>
+
+                ${escapeHTML(
+                    job.description ||
+                    "No description provided."
+                )}
+
+            </p>
+
+        </div>
+
+
+        <div class="details-description">
+
+            <p>
+
+                <strong>
+                    Application Options:
+                </strong>
+
+            </p>
+
+
+            ${
+                job.applyUrl
+                ?
+
+                `
+
+                <p>
+
+                    🔗
+                    <strong>
+                        Apply URL:
+                    </strong>
+
+                    ${escapeHTML(
+                        job.applyUrl
+                    )}
+
+                </p>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+            ${
+                job.applicationEmail
+                ?
+
+                `
+
+                <p>
+
+                    📧
+                    <strong>
+                        Application Email:
+                    </strong>
+
+                    ${escapeHTML(
+                        job.applicationEmail
+                    )}
+
+                </p>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+            ${
+                !job.applyUrl &&
+                !job.applicationEmail
+
+                ?
+
+                `
+
+                <p>
+                    No application method added.
+                </p>
+
+                `
+
+                :
+
+                ""
+            }
+
+        </div>
+
+
+        <div class="details-buttons">
+
+            ${
+                String(
+                    job.status ||
+                    ""
+                )
+                .trim()
+                .toLowerCase()
+                ===
+                "pending"
+
+                ?
+
+                `
+
+                    <button
+                        class="approve-btn"
+                        id="modalApprove"
+                    >
+                        ✓ Approve
+                    </button>
+
+
+                    <button
+                        class="reject-btn"
+                        id="modalReject"
+                    >
+                        ✕ Reject
+                    </button>
+
+                `
+
+                :
+
+                ""
+            }
+
+        </div>
+
+    `;
+
+
+    document
+    .getElementById(
+        "detailsModal"
+    )
+    .style.display =
+        "flex";
+
+
+    const approveButton =
+        document.getElementById(
+            "modalApprove"
+        );
+
+
+    const rejectButton =
+        document.getElementById(
+            "modalReject"
+        );
+
+
+    if(approveButton){
+
+        approveButton.onclick =
+        async function(){
+
+            closeDetails();
+
+            await approveJob(
+                id
+            );
+
+        };
+    }
+
+
+    if(rejectButton){
+
+        rejectButton.onclick =
+        async function(){
+
+            closeDetails();
+
+            await rejectJob(
+                id
+            );
+
+        };
+    }
+
+}
+
+
+// =====================================================
+// CLOSE DETAILS
+// =====================================================
+
+function closeDetails(){
+
+    const modal =
+        document.getElementById(
+            "detailsModal"
+        );
+
+
+    if(modal){
+
+        modal.style.display =
+            "none";
+    }
+}
+
+
+// =====================================================
+// APPROVE
+// =====================================================
+
+async function approveJob(id){
+
+    if(
+        !confirm(
+            "Approve this job? It will become visible on the main website."
+        )
+    ){
+
+        return;
+    }
+
+
+    try{
+
+        await updateDoc(
+
+            doc(
+                db,
+                "jobs",
+                id
+            ),
+
+            {
+
+                status:
+                    "approved",
+
+                approvedAt:
+                    new Date()
+                    .toISOString(),
+
+                rejectedAt:
+                    null
+
+            }
+
+        );
+
+
+        alert(
+            "Job approved successfully!"
+        );
+
+
+        await loadJobs();
+
+
+    }catch(error){
+
+        console.error(
+            "Approve error:",
+            error
+        );
+
+
+        alert(
+            "Approve error: " +
+            error.message
+        );
+    }
+
+}
+
+
+// =====================================================
+// REJECT
+// =====================================================
+
+async function rejectJob(id){
+
+    if(
+        !confirm(
+            "Reject this job? It will not appear on the main website."
+        )
+    ){
+
+        return;
+    }
+
+
+    try{
+
+        await updateDoc(
+
+            doc(
+                db,
+                "jobs",
+                id
+            ),
+
+            {
+
+                status:
+                    "rejected",
+
+                rejectedAt:
+                    new Date()
+                    .toISOString()
+
+            }
+
+        );
+
+
+        alert(
+            "Job rejected."
+        );
+
+
+        await loadJobs();
+
+
+    }catch(error){
+
+        console.error(
+            "Reject error:",
+            error
+        );
+
+
+        alert(
+            "Reject error: " +
+            error.message
+        );
+    }
+
+}
+
+
+// =====================================================
+// ADD BUTTON
+// =====================================================
+
+document
+.getElementById(
+    "addButton"
+)
+.onclick =
+function(){
+
+    editingId =
+        null;
+
+
+    resetForm();
+
+
+    document
+    .getElementById(
+        "formTitle"
+    )
+    .textContent =
+        "Add New Job";
+
+
+    document
+    .getElementById(
+        "saveJobButton"
+    )
+    .textContent =
+        "Save Job";
+
+
+    document
+    .getElementById(
+        "addJobForm"
+    )
+    .style.display =
+        "block";
+
+
+    document
+    .getElementById(
+        "addJobForm"
+    )
+    .scrollIntoView({
+        behavior:
+            "smooth"
+    });
+
+};
+
+
+// =====================================================
+// SAVE / UPDATE JOB
+// =====================================================
+
+document
+.getElementById(
+    "saveJobButton"
+)
+.onclick =
+async function(){
+
+    const job =
+        getFormData();
+
+
+    if(!job){
+
+        alert(
+            "Please fill all required fields correctly. Add either an Apply URL or an Application Email."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        if(
+            editingId
+        ){
+
+            await updateDoc(
+
+                doc(
+                    db,
+                    "jobs",
+                    editingId
+                ),
+
+                job
+
+            );
+
+
+            alert(
+                "Job updated successfully!"
+            );
+
+
+        }else{
+
+            await addDoc(
+
+                jobsRef,
+
+                {
+
+                    ...job,
+
+                    status:
+                        "approved",
+
+                    createdAt:
+                        new Date()
+                        .toISOString()
+
+                }
+
+            );
+
+
+            alert(
+                "Job added successfully!"
+            );
+        }
+
+
+        editingId =
+            null;
+
+
+        resetForm();
+
+
+        document
+        .getElementById(
+            "addJobForm"
+        )
+        .style.display =
+            "none";
+
+
+        await loadJobs();
+
+
+    }catch(error){
+
+        console.error(
+            "Firebase save error:",
+            error
+        );
+
+
+        alert(
+            "Firebase error: " +
+            error.message
+        );
+    }
+
+};
+
+
+// =====================================================
+// FORM DATA
+// =====================================================
+
+function getFormData(){
+
+    const title =
+        document
+        .getElementById(
+            "jobTitle"
+        )
+        .value
+        .trim();
+
+
+    const company =
+        document
+        .getElementById(
+            "jobCompany"
+        )
+        .value
+        .trim();
+
+
+    const location =
+        document
+        .getElementById(
+            "jobLocation"
+        )
+        .value
+        .trim();
+
+
+    const category =
+        document
+        .getElementById(
+            "jobCategory"
+        )
+        .value;
+
+
+    const experience =
+        document
+        .getElementById(
+            "jobExperience"
+        )
+        .value;
+
+
+    const type =
+        document
+        .getElementById(
+            "jobType"
+        )
+        .value;
+
+
+    const salary =
+        document
+        .getElementById(
+            "jobSalary"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document
+        .getElementById(
+            "jobDescription"
+        )
+        .value
+        .trim();
+
+
+    const applyUrl =
+        document
+        .getElementById(
+            "jobApplyUrl"
+        )
+        .value
+        .trim();
+
+
+    const applicationEmail =
+        document
+        .getElementById(
+            "jobApplyEmail"
+        )
+        .value
+        .trim();
+
+
+    if(
+
+        !title ||
+        !company ||
+        !location ||
+        !category ||
+        !experience ||
+        !description
+
+    ){
+
+        return null;
+    }
+
+
+    // =================================================
+    // AT LEAST ONE APPLICATION METHOD REQUIRED
+    // =================================================
+
+    if(
+
+        !applyUrl &&
+        !applicationEmail
+
+    ){
+
+        return null;
+    }
+
+
+    // =================================================
+    // VALIDATE URL ONLY IF PROVIDED
+    // =================================================
+
+    if(applyUrl){
+
+        try{
+
+            const url =
+                new URL(
+                    applyUrl
+                );
+
+
+            if(
+
+                url.protocol !==
+                    "http:" &&
+
+                url.protocol !==
+                    "https:"
+
+            ){
+
+                return null;
+            }
+
+
+        }catch{
+
+            return null;
+        }
+
+    }
+
+
+    // =================================================
+    // VALIDATE EMAIL ONLY IF PROVIDED
+    // =================================================
+
+    if(applicationEmail){
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if(
+            !emailPattern.test(
+                applicationEmail
+            )
+        ){
+
+            return null;
+        }
+
+    }
+
+
+    return {
+
+        title,
+
+        company,
+
+        location,
+
+        category,
+
+        experience,
+
+        type,
+
+        salary:
+            salary ||
+            "Salary not disclosed",
+
+        description,
+
+        applyUrl,
+
+        applicationEmail
+
+    };
+
+}
+
+
+// =====================================================
+// EDIT JOB
+// =====================================================
+
+async function editJob(id){
+
+    const selected =
+        allAdminJobs.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                String(id)
+        );
+
+
+    if(!selected){
+
+        alert(
+            "Job not found!"
+        );
+
+        return;
+    }
+
+
+    editingId =
+        id;
+
+
+    document
+    .getElementById(
+        "jobTitle"
+    )
+    .value =
+        selected.title ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobCompany"
+    )
+    .value =
+        selected.company ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobLocation"
+    )
+    .value =
+        selected.location ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobCategory"
+    )
+    .value =
+        selected.category ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobExperience"
+    )
+    .value =
+        selected.experience ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobType"
+    )
+    .value =
+        selected.type ||
+        "Full Time";
+
+
+    document
+    .getElementById(
+        "jobSalary"
+    )
+    .value =
+        selected.salary ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobDescription"
+    )
+    .value =
+        selected.description ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobApplyUrl"
+    )
+    .value =
+        selected.applyUrl ||
+        "";
+
+
+    document
+    .getElementById(
+        "jobApplyEmail"
+    )
+    .value =
+        selected.applicationEmail ||
+        "";
+
+
+    document
+    .getElementById(
+        "formTitle"
+    )
+    .textContent =
+        "Edit Job";
+
+
+    document
+    .getElementById(
+        "saveJobButton"
+    )
+    .textContent =
+        "Update Job";
+
+
+    document
+    .getElementById(
+        "addJobForm"
+    )
+    .style.display =
+        "block";
+
+
+    document
+    .getElementById(
+        "addJobForm"
+    )
+    .scrollIntoView({
+        behavior:
+            "smooth"
+    });
+
+}
+
+
+// =====================================================
+// DELETE JOB
+// =====================================================
+
+async function deleteJob(id){
+
+    if(
+        !confirm(
+            "Delete this job permanently?"
+        )
+    ){
+
+        return;
+    }
+
+
+    try{
+
+        await deleteDoc(
+
+            doc(
+                db,
+                "jobs",
+                id
+            )
+
+        );
+
+
+        alert(
+            "Job deleted successfully!"
+        );
+
+
+        await loadJobs();
+
+
+    }catch(error){
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        alert(
+            "Delete error: " +
+            error.message
+        );
+    }
+
+}
+
+
+// =====================================================
+// CANCEL
+// =====================================================
+
+document
+.getElementById(
+    "cancelButton"
+)
+.onclick =
+function(){
+
+    editingId =
+        null;
+
+
+    resetForm();
+
+
+    document
+    .getElementById(
+        "addJobForm"
+    )
+    .style.display =
+        "none";
+
+};
+
+
+// =====================================================
+// RESET FORM
+// =====================================================
+
+function resetForm(){
+
+    document
+    .getElementById(
+        "jobTitle"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobCompany"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobLocation"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobCategory"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobExperience"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobType"
+    )
+    .value =
+        "Full Time";
+
+
+    document
+    .getElementById(
+        "jobSalary"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobDescription"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobApplyUrl"
+    )
+    .value =
+        "";
+
+
+    document
+    .getElementById(
+        "jobApplyEmail"
+    )
+    .value =
+        "";
+
+}
+
+
+// =====================================================
+// SECURITY
+// =====================================================
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value || ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+// =====================================================
+// CLOSE MODAL OUTSIDE CLICK
+// =====================================================
+
+window.addEventListener(
+    "click",
+    function(event){
+
+        const modal =
+            document.getElementById(
+                "detailsModal"
+            );
+
+
+        if(
+            event.target ===
+            modal
+        ){
+
+            closeDetails();
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// START
+// =====================================================
+
+console.log(
+    "NaukriHub Admin Panel - Separate Admin Auth Ready"
+);
+
+</script>
+
+</body>
+</html>

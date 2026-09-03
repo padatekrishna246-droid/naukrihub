@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://naukrihub-61299.web.app/sitemap.xml

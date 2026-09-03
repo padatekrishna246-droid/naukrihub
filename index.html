@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="google-site-verification"
+        content="nZF1GTImG86EVRXZRDsOBeyhislA3AqvcCnPVFZgvmU"
+    />
+
+    <!-- =====================================================
+         NAUKRIHUB SEO
+         ===================================================== -->
+
+    <title>NaukriHub - Find Your Dream Job | Jobs in India</title>
+
+    <meta
+        name="description"
+        content="NaukriHub helps you find the right job opportunities across India. Search jobs by title, location, category, experience and job type."
+    >
+
+    <meta
+        name="keywords"
+        content="NaukriHub, jobs in India, job search, latest jobs, job portal, employment, careers, job vacancies"
+    >
+
+    <meta
+        name="author"
+        content="NaukriHub"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <meta
+        name="googlebot"
+        content="index, follow"
+    >
+
+    <!-- =====================================================
+         CANONICAL URL
+         ===================================================== -->
+
+    <link
+        rel="canonical"
+        href="https://naukrihub-61299.web.app/"
+    >
+
+    <!-- =====================================================
+         FAVICON
+         ===================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <!-- =====================================================
+         OPEN GRAPH
+         ===================================================== -->
+
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <meta
+        property="og:title"
+        content="NaukriHub - Find Your Dream Job"
+    >
+
+    <meta
+        property="og:description"
+        content="Search and discover the latest job opportunities across India with NaukriHub."
+    >
+
+    <meta
+        property="og:url"
+        content="https://naukrihub-61299.web.app/"
+    >
+
+    <meta
+        property="og:site_name"
+        content="NaukriHub"
+    >
+
+    <!-- =====================================================
+         TWITTER / SOCIAL SHARING
+         ===================================================== -->
+
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="NaukriHub - Find Your Dream Job"
+    >
+
+    <meta
+        name="twitter:description"
+        content="Find the latest job opportunities across India with NaukriHub."
+    >
+
+    <!-- =====================================================
+         CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="/style.css?v=3"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            NaukriHub
+        </div>
+
+        <nav>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#jobs">
+                Jobs
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a
+                href="#savedJobsSection"
+                onclick="handleSavedJobsNav(event)"
+            >
+                Saved Jobs
+            </a>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <button
+                class="auth-btn"
+                id="authButton"
+                onclick="openAuthModal()"
+            >
+                Login / Register
+            </button>
+
+            <button
+                class="post-btn"
+                onclick="openAddJob()"
+            >
+                + Post Job
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section
+        id="home"
+        class="hero"
+    >
+
+        <div class="hero-content">
+
+            <h1>
+                Find Your Dream Job
+            </h1>
+
+            <p>
+                Discover the right opportunity and build your career.
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Job title, company or keyword"
+                >
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Location"
+                >
+
+                <button
+                    onclick="searchJobs()"
+                >
+                    Search Jobs
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= JOBS ================= -->
+
+    <section
+        id="jobs"
+        class="jobs-section"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    Latest Jobs
+                </h2>
+
+                <p id="resultCount">
+                    0 jobs found
+                </p>
+
+            </div>
+
+            <strong>
+
+                Total Jobs:
+
+                <span id="totalJobs">
+                    0
+                </span>
+
+            </strong>
+
+        </div>
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <div class="filters">
+
+            <select
+                id="categoryFilter"
+                onchange="filterJobs()"
+            >
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option value="IT">
+                    IT
+                </option>
+
+                <option value="Engineering">
+                    Engineering
+                </option>
+
+                <option value="Marketing">
+                    Marketing
+                </option>
+
+                <option value="Sales">
+                    Sales
+                </option>
+
+            </select>
+
+
+            <select
+                id="experienceFilter"
+                onchange="filterJobs()"
+            >
+
+                <option value="">
+                    All Experience
+                </option>
+
+                <option value="1-3">
+                    1-3 Years
+                </option>
+
+                <option value="3-5">
+                    3-5 Years
+                </option>
+
+                <option value="5+">
+                    5+ Years
+                </option>
+
+            </select>
+
+
+            <select
+                id="typeFilter"
+                onchange="filterJobs()"
+            >
+
+                <option value="">
+                    All Job Types
+                </option>
+
+                <option value="Full Time">
+                    Full Time
+                </option>
+
+                <option value="Part Time">
+                    Part Time
+                </option>
+
+                <option value="Remote">
+                    Remote
+                </option>
+
+                <option value="Internship">
+                    Internship
+                </option>
+
+            </select>
+
+
+            <button
+                onclick="clearFilters()"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+
+        <!-- ================= JOB CARDS ================= -->
+
+        <div
+            id="jobsContainer"
+            class="jobs-container"
+        >
+        </div>
+
+
+        <div
+            id="noJobs"
+            class="no-jobs"
+            style="display:none;"
+        >
+
+            <h3>
+                No jobs found
+            </h3>
+
+            <p>
+                Try changing your search or filters.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <section
+        id="categories"
+        class="categories-section"
+    >
+
+        <h2>
+            Popular Categories
+        </h2>
+
+        <div class="categories-grid">
+
+            <button
+                onclick="selectCategory('IT')"
+            >
+                💻 IT
+            </button>
+
+            <button
+                onclick="selectCategory('Engineering')"
+            >
+                ⚙️ Engineering
+            </button>
+
+            <button
+                onclick="selectCategory('Marketing')"
+            >
+                📢 Marketing
+            </button>
+
+            <button
+                onclick="selectCategory('Sales')"
+            >
+                📈 Sales
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SAVED JOBS ================= -->
+
+    <section
+        id="savedJobsSection"
+        class="saved-jobs-section"
+    >
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    Saved Jobs
+                </h2>
+
+                <p id="savedJobsCount">
+                    0 saved
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="savedJobsContainer"
+            class="saved-jobs-container"
+        >
+        </div>
+
+
+        <div
+            id="noSavedJobs"
+            class="no-saved-jobs"
+        >
+
+            <h3>
+                No saved jobs yet
+            </h3>
+
+            <p>
+                Save jobs you are interested in
+                and they will appear here.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section
+        id="about"
+        class="about-section"
+    >
+
+        <h2>
+            About NaukriHub
+        </h2>
+
+        <p>
+            NaukriHub helps job seekers discover
+            opportunities and connect with employers.
+        </p>
+
+    </section>
+
+
+    <!-- ================= JOB DETAILS MODAL ================= -->
+
+    <div
+        class="modal"
+        id="jobDetailsModal"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    Job Details
+                </h2>
+
+                <button
+                    type="button"
+                    onclick="closeJobDetails()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div id="jobDetailsContent">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= POST JOB MODAL ================= -->
+
+    <div
+        class="modal"
+        id="jobModal"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>
+                    Post a Job
+                </h2>
+
+                <button
+                    type="button"
+                    onclick="closeAddJob()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="jobForm">
+
+                <!-- JOB TITLE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Job Title
+                    </label>
+
+                    <input
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- COMPANY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Company
+                    </label>
+
+                    <input
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <input
+                        type="text"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Experience
+                    </label>
+
+                    <input
+                        type="text"
+                    >
+
+                </div>
+
+
+                <!-- SALARY -->
+
+                <div class="form-group">
+
+                    <label>
+                        Salary
+                    </label>
+
+                    <input
+                        type="text"
+                    >
+
+                </div>
+
+
+                <!-- =====================================================
+                     APPLICATION METHODS
+                     ===================================================== -->
+
+                <div class="form-group">
+
+                    <label for="applyUrl">
+                        Application URL (Optional)
+                    </label>
+
+                    <input
+                        type="url"
+                        id="applyUrl"
+                        name="applyUrl"
+                        placeholder="https://example.com/apply"
+                    >
+
+                    <small>
+                        Add the link where candidates can apply for this job.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="applicationEmail">
+                        Application Email (Optional)
+                    </label>
+
+                    <input
+                        type="email"
+                        id="applicationEmail"
+                        name="applicationEmail"
+                        placeholder="hr@example.com"
+                    >
+
+                    <small>
+                        Add the email address where candidates can send their application.
+                    </small>
+
+                </div>
+
+
+                <p style="color:#737d8f; font-size:13px; margin-top:-8px; margin-bottom:18px;">
+                    At least one application method is required:
+                    Application URL or Application Email.
+                </p>
+
+
+                <!-- JOB DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Job Description
+                    </label>
+
+                    <textarea
+                        rows="5"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Post Job
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= LOGIN / REGISTER MODAL ================= -->
+
+    <div
+        class="modal"
+        id="authModal"
+    >
+
+        <div
+            class="modal-content auth-modal-content"
+        >
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="authTitle">
+                        Login
+                    </h2>
+
+                    <p
+                        class="auth-subtitle"
+                        id="authSubtitle"
+                    >
+                        Login to save jobs to your account.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    onclick="closeAuthModal()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="authForm">
+
+                <div
+                    class="form-group"
+                    id="nameGroup"
+                    style="display:none;"
+                >
+
+                    <label for="authName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="authName"
+                        placeholder="Your name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="authEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="authEmail"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="authPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authPassword"
+                        placeholder="Minimum 6 characters"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="authSubmitBtn"
+                >
+                    Login
+                </button>
+
+
+                <p class="auth-switch">
+
+                    <span id="authSwitchText">
+                        Don't have an account?
+                    </span>
+
+                    <button
+                        type="button"
+                        onclick="toggleAuthMode()"
+                        id="authSwitchBtn"
+                    >
+                        Register
+                    </button>
+
+                </p>
+
+
+                <p
+                    id="authMessage"
+                    class="auth-message"
+                ></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SCRIPT ================= -->
+
+    <script
+        type="module"
+        src="/script.js"
+    ></script>
+    
+</body>
+
+</html>
