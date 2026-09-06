@@ -14,6 +14,8 @@ import {
     getFirestore,
     collection,
     getDocs,
+    query,
+    where,
     doc,
     setDoc,
     addDoc,
@@ -645,6 +647,8 @@ window.logoutUser = async function () {
 
 // =====================================================
 // LOAD JOBS
+// SECURITY CHANGE:
+// ONLY APPROVED JOBS ARE READ FROM FIRESTORE
 // =====================================================
 
 async function loadJobs() {
@@ -674,12 +678,32 @@ async function loadJobs() {
             `;
         }
 
-        const snapshot =
-            await getDocs(
+        // =================================================
+        // IMPORTANT SECURITY QUERY
+        // =================================================
+        // Firestore will return ONLY jobs whose
+        // status field is exactly "approved".
+        //
+        // This is required because the Firestore Rules
+        // will also allow public reads only for approved jobs.
+        // =================================================
+
+        const jobsQuery =
+            query(
                 collection(
                     db,
                     "jobs"
+                ),
+                where(
+                    "status",
+                    "==",
+                    "approved"
                 )
+            );
+
+        const snapshot =
+            await getDocs(
+                jobsQuery
             );
 
         allJobs = [];
@@ -747,10 +771,11 @@ async function loadJobs() {
                 createdAt:
                     data.createdAt || "",
 
+                // Since this query only returns approved jobs,
+                // the loaded job status is approved.
                 status:
                     String(
-                        data.status ||
-                        "approved"
+                        data.status || ""
                     )
                         .trim()
                         .toLowerCase(),
@@ -802,7 +827,7 @@ async function loadJobs() {
         }
 
         console.log(
-            "Firebase jobs loaded:",
+            "Firebase approved jobs loaded:",
             allJobs
         );
 
@@ -913,6 +938,7 @@ function updateJobCount(
         approvedJobs.length;
 }
 
+
 // =====================================================
 // STATIC SEO JOB URL
 // MATCHES generate-jobs.js EXACTLY
@@ -936,6 +962,8 @@ function getStaticJobURL(job) {
 
     return `/jobs/${title}-${job.id}.html`;
 }
+
+
 // =====================================================
 // DISPLAY JOBS
 // =====================================================
@@ -1106,15 +1134,12 @@ function displayJobs(jobs) {
                 </strong>
 
 
-                <button
+                <a
                     class="details-btn"
-
-                    onclick="viewJobDetails('${escapeAttribute(
-                        job.id
-                    )}')"
+                    href="${getStaticJobURL(job)}"
                 >
                     View Details
-                </button>
+                </a>
 
             </div>
         `;

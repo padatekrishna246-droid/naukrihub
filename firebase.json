@@ -8,7 +8,8 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
-      "naukrihub-indexing-key.json"
+      "naukrihub-indexing-key.json",
+      "serviceAccountKey.json"
     ]
   }
 }
