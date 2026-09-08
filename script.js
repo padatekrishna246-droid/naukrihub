@@ -39,7 +39,7 @@ import {
 // =====================================================
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAQQOINfCPq651OmGSvl5mIVz5dfk1P54Q",
+    apiKey: "AIzaSyB-ISBh-p-GBhvG3d--R_D8xCq01ouBiLM",
     authDomain: "naukrihub-61299.firebaseapp.com",
     projectId: "naukrihub-61299",
     storageBucket: "naukrihub-61299.firebasestorage.app",
