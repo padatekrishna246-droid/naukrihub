@@ -3699,7 +3699,7 @@ if (authCloseButton) {
 }
 
 
-// =====================================================
+/// =====================================================
 // AUTH SWITCH BUTTON
 // =====================================================
 const authSwitchButton =
@@ -3710,10 +3710,9 @@ const authSwitchButton =
 if (authSwitchButton) {
     authSwitchButton.addEventListener(
         "click",
-        window.toggleAuthMode
+        toggleAuthMode
     );
 }
-
 
 // =====================================================
 // JOB MODAL CLOSE BUTTON
