@@ -3702,18 +3702,16 @@ if (authCloseButton) {
 // =====================================================
 // AUTH SWITCH BUTTON
 // =====================================================
-
 const authSwitchButton =
     document.getElementById(
         "authSwitchBtn"
     );
 
 if (authSwitchButton) {
-
     authSwitchButton.addEventListener(
-    "click",
-    window.toggleAuthMode
-);
+        "click",
+        window.toggleAuthMode
+    );
 }
 
 
