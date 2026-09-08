@@ -3711,9 +3711,9 @@ const authSwitchButton =
 if (authSwitchButton) {
 
     authSwitchButton.addEventListener(
-        "click",
-        toggleAuthMode
-    );
+    "click",
+    window.toggleAuthMode
+);
 }
 
 
