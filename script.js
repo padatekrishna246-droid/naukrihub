@@ -1083,17 +1083,17 @@ function displayJobs(jobs) {
             <div class="job-meta">
 
                 <span>
-                    📍
+                    <span class="meta-icon" aria-hidden="true">⌖</span>
                     ${escapeHTML(job.location)}
                 </span>
 
                 <span>
-                    💼
+                    <span class="meta-icon" aria-hidden="true">▣</span>
                     ${escapeHTML(job.category)}
                 </span>
 
                 <span>
-                    🎓
+                    <span class="meta-icon" aria-hidden="true">◷</span>
                     ${escapeHTML(
                         formatExperience(
                             job.experience
@@ -1102,7 +1102,7 @@ function displayJobs(jobs) {
                 </span>
 
                 <span>
-                    🕐
+                    <span class="meta-icon" aria-hidden="true">◴</span>
                     ${escapeHTML(job.type)}
                 </span>
 
@@ -1124,7 +1124,7 @@ function displayJobs(jobs) {
 
                 <strong>
 
-                    💰
+                    <span class="meta-icon" aria-hidden="true">₹</span>
 
                     ${escapeHTML(
                         job.salary ||
@@ -1572,21 +1572,21 @@ function renderJobDetails(job) {
         <div class="job-details-meta">
 
             <span>
-                📍
+                <span class="meta-icon" aria-hidden="true">⌖</span>
                 ${escapeHTML(
                     job.location
                 )}
             </span>
 
             <span>
-                💼
+                <span class="meta-icon" aria-hidden="true">▣</span>
                 ${escapeHTML(
                     job.category
                 )}
             </span>
 
             <span>
-                🎓
+                <span class="meta-icon" aria-hidden="true">◷</span>
                 ${escapeHTML(
                     formatExperience(
                         job.experience
@@ -1595,14 +1595,14 @@ function renderJobDetails(job) {
             </span>
 
             <span>
-                🕐
+                <span class="meta-icon" aria-hidden="true">◴</span>
                 ${escapeHTML(
                     job.type
                 )}
             </span>
 
             <span>
-                💰
+                <span class="meta-icon" aria-hidden="true">₹</span>
                 ${escapeHTML(
                     job.salary ||
                     "Salary not disclosed"
@@ -2291,7 +2291,7 @@ function getCompanyLetter(
             company || ""
         ).trim();
 
-    if (!value) return "?";
+    if (!value) return "N";
 
     return value
         .charAt(0)

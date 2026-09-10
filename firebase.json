@@ -7,9 +7,7 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "naukrihub-indexing-key.json",
-      "serviceAccountKey.json"
+      "**/node_modules/**"
     ]
   }
 }
