@@ -491,7 +491,32 @@ textarea:focus{
     }
 
 }
+/* ================= QUICK ADD JOB BUTTON ================= */
 
+#addButton{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    z-index:1000;
+    padding:13px 20px;
+    border-radius:50px;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    font-size:15px;
+}
+
+#addButton:hover{
+    transform:translateY(-2px);
+}
+
+/* MOBILE */
+@media(max-width:700px){
+    #addButton{
+        right:15px;
+        bottom:15px;
+        padding:12px 17px;
+        font-size:14px;
+    }
+}
 </style>
 
 </head>
