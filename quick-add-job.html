@@ -1,25 +1,13 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NaukriHub - Quick Add Job</title>
 
-
 <style>
-
-*{
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
 
 body{
     margin:0;
@@ -27,687 +15,898 @@ body{
     color:#172033;
 }
 
-
-/* ================= HEADER ================= */
-
 .header{
-
     height:70px;
-
-    background:#ffffff;
-
+    background:#fff;
     border-bottom:1px solid #e5e8ef;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:0 5%;
-
 }
 
 .logo{
-
     font-size:24px;
-
     font-weight:800;
-
 }
 
-.logo span{
-
-    color:#2563eb;
-
-}
+.logo span{color:#2563eb}
 
 .logout{
-
     border:none;
-
     background:#fff1f2;
-
     color:#dc2626;
-
     padding:10px 16px;
-
     border-radius:8px;
-
     font-weight:700;
-
     cursor:pointer;
-
 }
 
-
-/* ================= LOGIN ================= */
-
 .login-page{
-
     min-height:100vh;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     padding:20px;
-
 }
 
 .login-box{
-
     width:min(420px,100%);
-
-    background:#ffffff;
-
+    background:#fff;
     padding:30px;
-
     border-radius:16px;
-
     box-shadow:0 15px 40px rgba(0,0,0,.08);
-
 }
 
 .login-box h2{
-
     text-align:center;
-
     margin:0 0 25px;
-
 }
 
-
-/* ================= PAGE ================= */
-
-.admin-page{
-
-    display:none;
-
-}
+.admin-page{display:none}
 
 .container{
-
     width:min(800px,92%);
-
     margin:30px auto;
-
 }
 
 .card{
-
-    background:#ffffff;
-
+    background:#fff;
     border:1px solid #e5e8ef;
-
     border-radius:16px;
-
     padding:28px;
-
     box-shadow:0 8px 25px rgba(0,0,0,.04);
-
 }
 
-h1{
-
-    margin:0 0 7px;
-
-}
+h1{margin:0 0 7px}
 
 .subtitle{
-
     color:#737d8f;
-
     margin-bottom:25px;
-
 }
 
-
-/* ================= FORM ================= */
-
-.form-group{
-
-    margin-bottom:17px;
-
-}
+.form-group{margin-bottom:17px}
 
 .form-row{
-
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:15px;
-
 }
 
 label{
-
     display:block;
-
     font-weight:700;
-
     font-size:14px;
-
     margin-bottom:7px;
-
 }
 
-input,
-select,
-textarea{
-
+input,select,textarea{
     width:100%;
-
     padding:12px;
-
     border:1px solid #dce1ea;
-
     border-radius:8px;
-
     font-size:15px;
-
     outline:none;
-
-    background:#ffffff;
-
+    background:#fff;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-
+input:focus,select:focus,textarea:focus{
     border-color:#2563eb;
-
 }
 
 textarea{
-
     min-height:170px;
-
     resize:vertical;
-
 }
-
-
-/* ================= BUTTON ================= */
 
 .add-job-btn{
-
     width:100%;
-
     border:none;
-
     background:#2563eb;
-
-    color:#ffffff;
-
+    color:#fff;
     padding:14px;
-
     border-radius:9px;
-
     font-size:16px;
-
     font-weight:800;
-
     cursor:pointer;
-
 }
 
-.add-job-btn:hover{
-
-    background:#1d4ed8;
-
-}
+.add-job-btn:hover{background:#1d4ed8}
 
 .add-job-btn:disabled{
-
     opacity:.6;
-
     cursor:not-allowed;
-
 }
 
-
-/* ================= MESSAGE ================= */
-
 .message{
-
     display:none;
-
     margin-top:15px;
-
     padding:12px;
-
     border-radius:8px;
-
     font-weight:700;
-
 }
 
 .success{
-
     display:block;
-
     background:#dcfce7;
-
     color:#166534;
-
 }
 
 .error{
-
     display:block;
-
     background:#fee2e2;
-
     color:#991b1b;
-
 }
-
-
-/* ================= MOBILE ================= */
 
 @media(max-width:700px){
-
-    .form-row{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .card{
-
-        padding:20px;
-
-    }
-
-    .header{
-
-        padding:0 20px;
-
-    }
-
-    .logo{
-
-        font-size:19px;
-
-    }
-
+    .form-row{grid-template-columns:1fr}
+    .card{padding:20px}
+    .header{padding:0 20px}
+    .logo{font-size:19px}
 }
-
 </style>
 
 </head>
 
-
 <body>
 
+<!-- LOGIN -->
 
-<!-- =====================================================
-     ADMIN LOGIN
-     ===================================================== -->
+<div class="login-page" id="loginPage">
 
-<div
-    class="login-page"
-    id="loginPage"
->
-
+```
 <div class="login-box">
 
-<h2>
-<span style="color:#2563eb">
-Naukri
-</span>Hub Admin
-</h2>
+    <h2>
+        <span style="color:#2563eb">Naukri</span>Hub Admin
+    </h2>
 
+    <div class="form-group">
+        <label>Admin Email</label>
+        <input
+            type="email"
+            id="email"
+            autocomplete="username"
+            placeholder="Enter admin email"
+        >
+    </div>
 
-<div class="form-group">
+    <div class="form-group">
+        <label>Password</label>
+        <input
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            placeholder="Enter password"
+        >
+    </div>
 
-<label>
-Admin Email
-</label>
+    <button class="add-job-btn" id="loginButton">
+        Login
+    </button>
 
-<input
-    type="email"
-    id="email"
-    autocomplete="username"
-    placeholder="Enter admin email"
->
+    <div class="message" id="loginMessage"></div>
+
+</div>
+```
 
 </div>
 
+<!-- ADMIN PAGE -->
 
-<div class="form-group">
+<div class="admin-page" id="adminPage">
 
-<label>
-Password
-</label>
-
-<input
-    type="password"
-    id="password"
-    autocomplete="current-password"
-    placeholder="Enter password"
->
-
-</div>
-
-
-<button
-    class="add-job-btn"
-    id="loginButton"
->
-Login
-</button>
-
-
-<div
-    class="message"
-    id="loginMessage"
-></div>
-
-</div>
-
-</div>
-
-
-
-<!-- =====================================================
-     ADMIN PAGE
-     ===================================================== -->
-
-<div
-    class="admin-page"
-    id="adminPage"
->
-
-
+```
 <header class="header">
 
-<div class="logo">
+    <div class="logo">
+        <span>Naukri</span>Hub Quick Add
+    </div>
 
-<span>Naukri</span>Hub
-
-Quick Add
-
-</div>
-
-
-<button
-    class="logout"
-    id="logoutButton"
->
-Logout
-</button>
+    <button class="logout" id="logoutButton">
+        Logout
+    </button>
 
 </header>
 
 
-
 <main class="container">
 
+    <div class="card">
 
-<div class="card">
+        <h1>⚡ Quick Add Job</h1>
 
+        <p class="subtitle">
+            Add a genuine job directly to NaukriHub.
+        </p>
 
-<h1>
-⚡ Quick Add Job
-</h1>
 
+        <!-- TITLE -->
+        <div class="form-group">
+            <label>Job Title *</label>
 
-<p class="subtitle">
-Add a genuine job directly to NaukriHub.
-</p>
+            <input
+                type="text"
+                id="jobTitle"
+                placeholder="Software Development Engineer"
+            >
+        </div>
 
 
+        <!-- COMPANY + LOCATION -->
+        <div class="form-row">
 
-<!-- JOB TITLE -->
+            <div class="form-group">
+                <label>Company *</label>
 
-<div class="form-group">
+                <input
+                    type="text"
+                    id="company"
+                    placeholder="Amazon"
+                >
+            </div>
 
-<label>
-Job Title *
-</label>
+            <div class="form-group">
+                <label>Location *</label>
 
-<input
-    type="text"
-    id="jobTitle"
-    placeholder="Software Development Engineer"
->
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Bengaluru, Karnataka"
+                >
+            </div>
 
-</div>
+        </div>
 
 
+        <!-- CATEGORY + EXPERIENCE -->
+        <div class="form-row">
 
-<!-- COMPANY + LOCATION -->
+            <div class="form-group">
 
-<div class="form-row">
+                <label>Category *</label>
 
+                <select id="category">
 
-<div class="form-group">
+                    <option value="">
+                        Select Category
+                    </option>
 
-<label>
-Company *
-</label>
+                    <option value="IT">
+                        IT
+                    </option>
 
-<input
-    type="text"
-    id="company"
-    placeholder="Amazon"
->
+                    <option value="Engineering">
+                        Engineering
+                    </option>
 
-</div>
+                    <option value="Software Development">
+                        Software Development
+                    </option>
 
+                    <option value="Quality">
+                        Quality
+                    </option>
 
-<div class="form-group">
+                    <option value="Production">
+                        Production
+                    </option>
 
-<label>
-Location *
-</label>
+                    <option value="Mechanical">
+                        Mechanical
+                    </option>
 
-<input
-    type="text"
-    id="location"
-    placeholder="Bengaluru, Karnataka"
->
+                    <option value="Sales">
+                        Sales
+                    </option>
 
-</div>
+                    <option value="HR">
+                        HR
+                    </option>
 
-</div>
+                </select>
 
+            </div>
 
 
-<!-- CATEGORY + EXPERIENCE -->
+            <div class="form-group">
 
-<div class="form-row">
+                <label>Experience *</label>
 
+                <input
+                    type="text"
+                    id="experience"
+                    list="experienceList"
+                    placeholder="3-5 Years"
+                >
 
-<div class="form-group">
+                <datalist id="experienceList">
+                    <option value="Fresher">
+                    <option value="1-3 Years">
+                    <option value="3-5 Years">
+                    <option value="5+ Years">
+                    <option value="8+ Years">
+                    <option value="10+ Years">
+                </datalist>
 
-<label>
-Category *
-</label>
+            </div>
 
-<select id="category">
+        </div>
 
-<option value="">
-Select Category
-</option>
 
-<option>
-IT
-</option>
+        <!-- TYPE + SALARY -->
+        <div class="form-row">
 
-<option>
-Engineering
-</option>
+            <div class="form-group">
 
-<option>
-Software Development
-</option>
+                <label>Job Type *</label>
 
-<option>
-Quality
-</option>
+                <select id="jobType">
 
-<option>
-Production
-</option>
+                    <option value="Full Time">
+                        Full Time
+                    </option>
 
-<option>
-Mechanical
-</option>
+                    <option value="Part Time">
+                        Part Time
+                    </option>
 
-<option>
-Sales
-</option>
+                    <option value="Contract">
+                        Contract
+                    </option>
 
-<option>
-HR
-</option>
+                    <option value="Remote">
+                        Remote
+                    </option>
 
-</select>
+                </select>
 
-</div>
+            </div>
 
 
-<div class="form-group">
+            <div class="form-group">
 
-<label>
-Experience *
-</label>
+                <label>Salary</label>
 
-<input
-    type="text"
-    id="experience"
-    list="experienceList"
-    placeholder="3+ Years"
->
+                <input
+                    type="text"
+                    id="salary"
+                    placeholder="Salary not disclosed"
+                >
 
+            </div>
 
-<datalist id="experienceList">
+        </div>
 
-<option value="Fresher">
 
-<option value="1-3 Years">
+        <!-- DESCRIPTION -->
+        <div class="form-group">
 
-<option value="3-5 Years">
+            <label>Job Description *</label>
 
-<option value="5+ Years">
+            <textarea
+                id="description"
+                placeholder="Paste the genuine job description here..."
+            ></textarea>
 
-<option value="8+ Years">
+        </div>
 
-<option value="10+ Years">
 
-</datalist>
+        <!-- APPLY URL -->
+        <div class="form-group">
 
-</div>
+            <label>Official Apply URL *</label>
 
-</div>
+            <input
+                type="url"
+                id="applyUrl"
+                placeholder="https://www.amazon.jobs/..."
+            >
 
+        </div>
 
 
-<!-- TYPE + SALARY -->
+        <button class="add-job-btn" id="addJobButton">
+            ⚡ Add Job
+        </button>
 
-<div class="form-row">
+        <div class="message" id="jobMessage"></div>
 
+    </div>
 
-<div class="form-group">
-
-<label>
-Job Type *
-</label>
-
-<select id="jobType">
-
-<option>
-Full Time
-</option>
-
-<option>
-Part Time
-</option>
-
-<option>
-Contract
-</option>
-
-<option>
-Remote
-</option>
-
-</select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Salary
-</label>
-
-<input
-    type="text"
-    id="salary"
-    placeholder="Salary not disclosed"
->
-
-</div>
-
-</div>
-
-
-
-<!-- DESCRIPTION -->
-
-<div class="form-group">
-
-<label>
-Job Description *
-</label>
-
-<textarea
-    id="description"
-    placeholder="Paste the genuine job description here..."
-></textarea>
-
-</div>
-
-
-
-<!-- APPLY URL -->
-
-<div class="form-group">
-
-<label>
-Official Apply URL *
-</label>
-
-<input
-    type="url"
-    id="applyUrl"
-    placeholder="https://www.amazon.jobs/..."
->
-
-</div>
-
-
-
-<button
-    class="add-job-btn"
-    id="addJobButton"
->
-⚡ Add Job
-</button>
-
-
-<div
-    class="message"
-    id="jobMessage"
-></div>
-
+</main>
 ```
+
+</div>
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import {
+    initializeAuth,
+    browserSessionPersistence,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+/* ================= FIREBASE CONFIG ================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyB-ISBh-p-GBhvG3d--R_D8xCq01ouBiLM",
+
+    authDomain:
+        "naukrihub-61299.firebaseapp.com",
+
+    projectId:
+        "naukrihub-61299",
+
+    storageBucket:
+        "naukrihub-61299.firebasestorage.app",
+
+    messagingSenderId:
+        "1094751577774",
+
+    appId:
+        "1:1094751577774:web:ed1673ac88629aafaeaf3f",
+
+    measurementId:
+        "G-3307PZE918"
+
+};
+
+
+/* ================= FIREBASE INIT ================= */
+
+const quickAddApp =
+    initializeApp(
+        firebaseConfig,
+        "NaukriHubQuickAdd"
+    );
+
+const auth =
+    initializeAuth(
+        quickAddApp,
+        {
+            persistence:
+                browserSessionPersistence
+        }
+    );
+
+const db =
+    getFirestore(quickAddApp);
+
+const jobsRef =
+    collection(db, "jobs");
+
+
+/* ================= ELEMENTS ================= */
+
+const loginPage =
+    document.getElementById("loginPage");
+
+const adminPage =
+    document.getElementById("adminPage");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const addJobButton =
+    document.getElementById("addJobButton");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const jobMessage =
+    document.getElementById("jobMessage");
+
+
+/* ================= MESSAGE ================= */
+
+function showMessage(element, message, type){
+
+    element.textContent = message;
+
+    element.className =
+        "message " + type;
+
+}
+
+
+/* ================= ADMIN CHECK ================= */
+
+async function checkAdmin(user){
+
+    try{
+
+        const userDoc =
+            await getDoc(
+                doc(db, "users", user.uid)
+            );
+
+        if(
+            !userDoc.exists() ||
+            userDoc.data().role !== "admin"
+        ){
+
+            await signOut(auth);
+
+            showMessage(
+                loginMessage,
+                "Access denied. Admin account required.",
+                "error"
+            );
+
+            return false;
+        }
+
+        return true;
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            loginMessage,
+            "Unable to verify admin account.",
+            "error"
+        );
+
+        return false;
+    }
+}
+
+
+/* ================= AUTH STATE ================= */
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        if(!user){
+
+            loginPage.style.display = "flex";
+            adminPage.style.display = "none";
+
+            return;
+        }
+
+        const isAdmin =
+            await checkAdmin(user);
+
+        if(isAdmin){
+
+            loginPage.style.display = "none";
+            adminPage.style.display = "block";
+
+        }
+
+    }
+);
+
+
+/* ================= LOGIN ================= */
+
+loginButton.addEventListener(
+    "click",
+    async () => {
+
+        const email =
+            document.getElementById("email")
+            .value
+            .trim();
+
+        const password =
+            document.getElementById("password")
+            .value;
+
+        if(!email || !password){
+
+            showMessage(
+                loginMessage,
+                "Enter email and password.",
+                "error"
+            );
+
+            return;
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent = "Logging in...";
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            showMessage(
+                loginMessage,
+                "Login successful.",
+                "success"
+            );
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                loginMessage,
+                "Login failed. Check email and password.",
+                "error"
+            );
+
+        }finally{
+
+            loginButton.disabled = false;
+            loginButton.textContent = "Login";
+
+        }
+
+    }
+);
+
+
+/* ================= LOGOUT ================= */
+
+logoutButton.addEventListener(
+    "click",
+    async () => {
+
+        await signOut(auth);
+
+    }
+);
+
+
+/* ================= ADD JOB ================= */
+
+addJobButton.addEventListener(
+    "click",
+    async () => {
+
+        const title =
+            document.getElementById("jobTitle")
+            .value
+            .trim();
+
+        const company =
+            document.getElementById("company")
+            .value
+            .trim();
+
+        const location =
+            document.getElementById("location")
+            .value
+            .trim();
+
+        const category =
+            document.getElementById("category")
+            .value
+            .trim();
+
+        const experience =
+            document.getElementById("experience")
+            .value
+            .trim();
+
+        const jobType =
+            document.getElementById("jobType")
+            .value
+            .trim();
+
+        const salary =
+            document.getElementById("salary")
+            .value
+            .trim();
+
+        const description =
+            document.getElementById("description")
+            .value
+            .trim();
+
+        const applyUrl =
+            document.getElementById("applyUrl")
+            .value
+            .trim();
+
+
+        /* REQUIRED FIELDS */
+
+        if(
+            !title ||
+            !company ||
+            !location ||
+            !category ||
+            !experience ||
+            !jobType ||
+            !description ||
+            !applyUrl
+        ){
+
+            showMessage(
+                jobMessage,
+                "Please fill all required fields (*).",
+                "error"
+            );
+
+            return;
+        }
+
+
+        /* URL CHECK */
+
+        try{
+
+            new URL(applyUrl);
+
+        }catch{
+
+            showMessage(
+                jobMessage,
+                "Please enter a valid official Apply URL.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        addJobButton.disabled = true;
+        addJobButton.textContent = "Adding Job...";
+
+
+        try{
+
+            const user =
+                auth.currentUser;
+
+            if(!user){
+
+                throw new Error(
+                    "You are not logged in."
+                );
+
+            }
+
+
+            /* FINAL ADMIN CHECK */
+
+            const userDoc =
+                await getDoc(
+                    doc(db, "users", user.uid)
+                );
+
+            if(
+                !userDoc.exists() ||
+                userDoc.data().role !== "admin"
+            ){
+
+                throw new Error(
+                    "Admin access required."
+                );
+
+            }
+
+
+            /* ADD JOB */
+
+            await addDoc(
+                jobsRef,
+                {
+
+                    title: title,
+
+                    company: company,
+
+                    location: location,
+
+                    category: category,
+
+                    experience: experience,
+
+                    type: jobType,
+
+                    salary:
+                        salary ||
+                        "Salary not disclosed",
+
+                    description: description,
+
+                    applyUrl: applyUrl,
+
+                    applicationEmail: "",
+
+                    status: "approved",
+
+                    createdAt:
+                        new Date().toISOString()
+
+                }
+            );
+
+
+            showMessage(
+                jobMessage,
+                "✅ Job added successfully!",
+                "success"
+            );
+
+
+            /* CLEAR FORM */
+
+            document.getElementById("jobTitle").value = "";
+            document.getElementById("company").value = "";
+            document.getElementById("location").value = "";
+            document.getElementById("category").value = "";
+            document.getElementById("experience").value = "";
+            document.getElementById("jobType").value = "Full Time";
+            document.getElementById("salary").value = "";
+            document.getElementById("description").value = "";
+            document.getElementById("applyUrl").value = "";
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                jobMessage,
+                "❌ Failed to add job: " +
+                error.message,
+                "error"
+            );
+
+        }finally{
+
+            addJobButton.disabled = false;
+            addJobButton.textContent = "⚡ Add Job";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
