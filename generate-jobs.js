@@ -10,7 +10,7 @@ const serviceAccountPath = path.join(
 );
 
 if (!fs.existsSync(serviceAccountPath)) {
-    console.error("? serviceAccountKey.json not found!");
+    console.error("❌ serviceAccountKey.json not found!");
     process.exit(1);
 }
 
@@ -98,14 +98,14 @@ function getApplicationUrl(job, aiJob) {
 
 async function generateJobs() {
 
-    console.log("?? Reading approved jobs from Firestore...");
+    console.log("🔎 Reading approved jobs from Firestore...");
 
     const snapshot = await db
         .collection("jobs")
         .where("status", "==", "approved")
         .get();
 
-    console.log(`? ${snapshot.size} approved jobs found`);
+    console.log(`✅ ${snapshot.size} approved jobs found`);
 
     const sitemapURLs = [];
 
@@ -191,12 +191,6 @@ async function generateJobs() {
         const jobURL =
             `${BASE_URL}/jobs/${slug}.html`;
 
-        /*
-        ==========================================
-        JOBPOSTING SCHEMA
-        ==========================================
-        */
-
         const schema = {
             "@context": "https://schema.org",
             "@type": "JobPosting",
@@ -232,12 +226,6 @@ async function generateJobs() {
                 .replace(/</g, "\\u003c")
                 .replace(/>/g, "\\u003e")
                 .replace(/&/g, "\\u0026");
-
-        /*
-        ==========================================
-        APPLY SECTION
-        ==========================================
-        */
 
         let applySection = "";
 
@@ -320,12 +308,6 @@ async function generateJobs() {
 </section>
 `;
         }
-
-        /*
-        ==========================================
-        HTML PAGE
-        ==========================================
-        */
 
         const html = `<!DOCTYPE html>
 
@@ -560,11 +542,6 @@ a {
 .job-top {
     display: block;
 }
-
-/*
-   FULL COMPANY NAME
-   Instead of P / A initial box
-*/
 
 .company-logo {
     display: inline-flex;
@@ -1199,7 +1176,6 @@ a {
 
 </header>
 
-
 <main class="page">
 
     <div class="breadcrumb">
@@ -1214,22 +1190,17 @@ a {
 
     </div>
 
-
     <div class="job-layout">
-
 
         <article class="job-card">
 
-
             <div class="job-top">
-
 
                 <div class="company-logo">
 
                     ${escapeHTML(company)}
 
                 </div>
-
 
                 <div>
 
@@ -1239,7 +1210,6 @@ a {
 
                     </h1>
 
-
                     <p class="company">
 
                         ${escapeHTML(company)}
@@ -1248,12 +1218,9 @@ a {
 
                 </div>
 
-
             </div>
 
-
             <div class="badges">
-
 
                 <div class="badge">
 
@@ -1265,7 +1232,6 @@ a {
 
                 </div>
 
-
                 <div class="badge">
 
                     <span class="badge-icon" aria-hidden="true">
@@ -1275,7 +1241,6 @@ a {
                     ${escapeHTML(type)}
 
                 </div>
-
 
                 <div class="badge">
 
@@ -1287,23 +1252,19 @@ a {
 
                 </div>
 
-
                 <div class="badge">
 
                     <span class="badge-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M16 7.5c0-1.4-1.5-2.5-3.5-2.5S9 6.1 9 7.5 10.2 9.7 12.5 10c2.2.3 3.5 1.1 3.5 2.8s-1.5 2.7-3.8 2.7S8.5 14.4 8.5 13"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M16 7.5c0-1.4-1.5-2.5-3.5-2.5S9 6.1 9 7.5 10.2 9.7 12.5 10c2.2.3 3.5 1.1 3.5 2.8s-1.5 2.7-3.8 2.7S8.5 14 8.5 13"/></svg>
                     </span>
 
                     ${escapeHTML(salary)}
 
                 </div>
 
-
             </div>
 
-
             <section class="description-section">
-
 
                 <h2 class="section-title">
 
@@ -1311,19 +1272,15 @@ a {
 
                 </h2>
 
-
                 <div class="description">
 
                     ${escapeHTML(description)}
 
                 </div>
 
-
             </section>
 
-
             ${applySection}
-
 
             <a
                 class="back-link"
@@ -1334,19 +1291,15 @@ a {
 
             </a>
 
-
         </article>
 
-
         <aside class="side-card">
-
 
             <h2 class="side-title">
 
                 Job Overview
 
             </h2>
-
 
             <div class="side-item">
 
@@ -1362,7 +1315,6 @@ a {
 
             </div>
 
-
             <div class="side-item">
 
                 <span class="side-label">
@@ -1376,7 +1328,6 @@ a {
                 </span>
 
             </div>
-
 
             <div class="side-item">
 
@@ -1392,7 +1343,6 @@ a {
 
             </div>
 
-
             <div class="side-item">
 
                 <span class="side-label">
@@ -1406,7 +1356,6 @@ a {
                 </span>
 
             </div>
-
 
             <div class="side-item">
 
@@ -1422,14 +1371,11 @@ a {
 
             </div>
 
-
         </aside>
-
 
     </div>
 
 </main>
-
 
 <footer class="footer">
 
@@ -1441,17 +1387,9 @@ a {
 
 </footer>
 
-
 </body>
 
 </html>`;
-
-
-        /*
-        ==========================================
-        WRITE JOB FILE
-        ==========================================
-        */
 
         const filePath =
             path.join(
@@ -1466,7 +1404,7 @@ a {
         );
 
         console.log(
-            `? Created: jobs/${slug}.html`
+            `✅ Created: jobs/${slug}.html`
         );
 
         sitemapURLs.push(jobURL);
@@ -1474,7 +1412,7 @@ a {
 
     /*
     ==========================================
-    GENERATE SITEMAP.XML
+    GENERATE SITEMAP2.XML
     ==========================================
     */
 
@@ -1501,7 +1439,7 @@ ${sitemapEntries}
     const sitemapPath =
         path.join(
             __dirname,
-            "sitemap.xml"
+            "sitemap2.xml"
         );
 
     fs.writeFileSync(
@@ -1513,13 +1451,13 @@ ${sitemapEntries}
     console.log("");
 
     console.log(
-        `??? Sitemap generated: ${sitemapURLs.length} URLs`
+        `🗺️ Sitemap2 generated: ${sitemapURLs.length} URLs`
     );
 
     console.log("");
 
     console.log(
-        "?? All job pages and sitemap generated successfully!"
+        "🚀 All job pages and sitemap2 generated successfully!"
     );
 }
 
