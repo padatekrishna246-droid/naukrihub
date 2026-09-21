@@ -1,0 +1,713 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>NaukriHub - Quick Add Job</title>
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    background:#f4f6fb;
+    color:#172033;
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+
+    height:70px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e5e8ef;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 5%;
+
+}
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:800;
+
+}
+
+.logo span{
+
+    color:#2563eb;
+
+}
+
+.logout{
+
+    border:none;
+
+    background:#fff1f2;
+
+    color:#dc2626;
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+/* ================= LOGIN ================= */
+
+.login-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+}
+
+.login-box{
+
+    width:min(420px,100%);
+
+    background:#ffffff;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+}
+
+.login-box h2{
+
+    text-align:center;
+
+    margin:0 0 25px;
+
+}
+
+
+/* ================= PAGE ================= */
+
+.admin-page{
+
+    display:none;
+
+}
+
+.container{
+
+    width:min(800px,92%);
+
+    margin:30px auto;
+
+}
+
+.card{
+
+    background:#ffffff;
+
+    border:1px solid #e5e8ef;
+
+    border-radius:16px;
+
+    padding:28px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.04);
+
+}
+
+h1{
+
+    margin:0 0 7px;
+
+}
+
+.subtitle{
+
+    color:#737d8f;
+
+    margin-bottom:25px;
+
+}
+
+
+/* ================= FORM ================= */
+
+.form-group{
+
+    margin-bottom:17px;
+
+}
+
+.form-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+}
+
+label{
+
+    display:block;
+
+    font-weight:700;
+
+    font-size:14px;
+
+    margin-bottom:7px;
+
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #dce1ea;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:#ffffff;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#2563eb;
+
+}
+
+textarea{
+
+    min-height:170px;
+
+    resize:vertical;
+
+}
+
+
+/* ================= BUTTON ================= */
+
+.add-job-btn{
+
+    width:100%;
+
+    border:none;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    padding:14px;
+
+    border-radius:9px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+}
+
+.add-job-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+.add-job-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+}
+
+.success{
+
+    display:block;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.error{
+
+    display:block;
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .header{
+
+        padding:0 20px;
+
+    }
+
+    .logo{
+
+        font-size:19px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+     ===================================================== -->
+
+<div
+    class="login-page"
+    id="loginPage"
+>
+
+<div class="login-box">
+
+<h2>
+<span style="color:#2563eb">
+Naukri
+</span>Hub Admin
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Admin Email
+</label>
+
+<input
+    type="email"
+    id="email"
+    autocomplete="username"
+    placeholder="Enter admin email"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Password
+</label>
+
+<input
+    type="password"
+    id="password"
+    autocomplete="current-password"
+    placeholder="Enter password"
+>
+
+</div>
+
+
+<button
+    class="add-job-btn"
+    id="loginButton"
+>
+Login
+</button>
+
+
+<div
+    class="message"
+    id="loginMessage"
+></div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN PAGE
+     ===================================================== -->
+
+<div
+    class="admin-page"
+    id="adminPage"
+>
+
+
+<header class="header">
+
+<div class="logo">
+
+<span>Naukri</span>Hub
+
+Quick Add
+
+</div>
+
+
+<button
+    class="logout"
+    id="logoutButton"
+>
+Logout
+</button>
+
+</header>
+
+
+
+<main class="container">
+
+
+<div class="card">
+
+
+<h1>
+⚡ Quick Add Job
+</h1>
+
+
+<p class="subtitle">
+Add a genuine job directly to NaukriHub.
+</p>
+
+
+
+<!-- JOB TITLE -->
+
+<div class="form-group">
+
+<label>
+Job Title *
+</label>
+
+<input
+    type="text"
+    id="jobTitle"
+    placeholder="Software Development Engineer"
+>
+
+</div>
+
+
+
+<!-- COMPANY + LOCATION -->
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>
+Company *
+</label>
+
+<input
+    type="text"
+    id="company"
+    placeholder="Amazon"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Location *
+</label>
+
+<input
+    type="text"
+    id="location"
+    placeholder="Bengaluru, Karnataka"
+>
+
+</div>
+
+</div>
+
+
+
+<!-- CATEGORY + EXPERIENCE -->
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>
+Category *
+</label>
+
+<select id="category">
+
+<option value="">
+Select Category
+</option>
+
+<option>
+IT
+</option>
+
+<option>
+Engineering
+</option>
+
+<option>
+Software Development
+</option>
+
+<option>
+Quality
+</option>
+
+<option>
+Production
+</option>
+
+<option>
+Mechanical
+</option>
+
+<option>
+Sales
+</option>
+
+<option>
+HR
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Experience *
+</label>
+
+<input
+    type="text"
+    id="experience"
+    list="experienceList"
+    placeholder="3+ Years"
+>
+
+
+<datalist id="experienceList">
+
+<option value="Fresher">
+
+<option value="1-3 Years">
+
+<option value="3-5 Years">
+
+<option value="5+ Years">
+
+<option value="8+ Years">
+
+<option value="10+ Years">
+
+</datalist>
+
+</div>
+
+</div>
+
+
+
+<!-- TYPE + SALARY -->
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>
+Job Type *
+</label>
+
+<select id="jobType">
+
+<option>
+Full Time
+</option>
+
+<option>
+Part Time
+</option>
+
+<option>
+Contract
+</option>
+
+<option>
+Remote
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Salary
+</label>
+
+<input
+    type="text"
+    id="salary"
+    placeholder="Salary not disclosed"
+>
+
+</div>
+
+</div>
+
+
+
+<!-- DESCRIPTION -->
+
+<div class="form-group">
+
+<label>
+Job Description *
+</label>
+
+<textarea
+    id="description"
+    placeholder="Paste the genuine job description here..."
+></textarea>
+
+</div>
+
+
+
+<!-- APPLY URL -->
+
+<div class="form-group">
+
+<label>
+Official Apply URL *
+</label>
+
+<input
+    type="url"
+    id="applyUrl"
+    placeholder="https://www.amazon.jobs/..."
+>
+
+</div>
+
+
+
+<button
+    class="add-job-btn"
+    id="addJobButton"
+>
+⚡ Add Job
+</button>
+
+
+<div
+    class="message"
+    id="jobMessage"
+></div>
+
+```
