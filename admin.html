@@ -517,6 +517,70 @@ textarea:focus{
         font-size:14px;
     }
 }
+        /* ================= JOB IMPORT ================= */
+
+        .job-import-box {
+            background: #f8fafc;
+            border: 1px solid #dbe3ef;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .job-import-box h3 {
+            margin-bottom: 8px;
+        }
+
+        .job-import-box p {
+            color: #737d8f;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .import-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .import-row input {
+            flex: 1;
+        }
+
+        .fetch-btn {
+            border: none;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .fetch-btn:hover {
+            opacity: 0.9;
+        }
+
+        .fetch-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .import-status {
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .import-row {
+                flex-direction: column;
+            }
+
+            .fetch-btn {
+                width: 100%;
+            }
+        }
+
+        /* ================= END JOB IMPORT ================= */
 </style>
 
 </head>
@@ -639,6 +703,231 @@ textarea:focus{
 
 
     <!-- =================================================
+                     JOB IMPORT
+                     ================================================= -->
+
+                <div class="job-import-box">
+
+                    <h3>
+                        Import Job Automatically
+                    </h3>
+
+                    <p>
+                        Paste a direct public job URL and fetch available job details automatically.
+                    </p>
+
+                    <div class="import-row">
+
+                        <input
+                            type="url"
+                            id="jobImportUrl"
+                            placeholder="https://example.com/job/123"
+                        >
+
+                        <button
+                            type="button"
+                            class="fetch-btn"
+                            id="fetchJobButton"
+                        >
+                            Fetch Job Details
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="importStatus"
+                        class="import-status"
+                    ></div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Job Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="jobTitle"
+                        placeholder="Quality Engineer"
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Company Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jobCompany"
+                            placeholder="ABC Manufacturing"
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>
+                            Location *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jobLocation"
+                            placeholder="Goa"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Category *
+                        </label>
+
+                        <select id="jobCategory">
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Quality">
+                                Quality
+                            </option>
+
+                            <option value="Production">
+                                Production
+                            </option>
+
+                            <option value="Mechanical">
+                                Mechanical
+                            </option>
+
+                            <option value="IT">
+                                IT & Software
+                            </option>
+
+                            <option value="Sales">
+                                Sales
+                            </option>
+
+                            <option value="Engineering">
+                                Engineering
+                            </option>
+
+                            <option value="HR">
+                                Human Resources
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Experience *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jobExperience"
+                            list="experienceOptions"
+                            placeholder="Select or type experience"
+                        >
+
+                        <datalist id="experienceOptions">
+
+                            <option value="Fresher"></option>
+                            <option value="1-3 Years"></option>
+                            <option value="3-5 Years"></option>
+                            <option value="4-5 Years"></option>
+                            <option value="5+ Years"></option>
+                            <option value="8+ Years"></option>
+
+                        </datalist>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>
+                            Job Type *
+                        </label>
+
+                        <select id="jobType">
+
+                            <option value="Full Time">
+                                Full Time
+                            </option>
+
+                            <option value="Part Time">
+                                Part Time
+                            </option>
+
+                            <option value="Remote">
+                                Remote
+                            </option>
+
+                            <option value="Contract">
+                                Contract
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Salary
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jobSalary"
+                            placeholder="₹25,000 - ₹40,000"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Job Description *
+                    </label>
+
+                    <textarea
+                        id="jobDescription"
+                        placeholder="Enter job description..."
+                    ></textarea>
+
+                </div>
+
+<!-- =================================================
          STATS
          ================================================= -->
 
@@ -1259,6 +1548,362 @@ let editingId =
 let allAdminJobs =
     [];
 
+
+// =====================================================
+
+        async function fetchJobDetails() {
+
+            const urlInput =
+                document.getElementById(
+                    "jobImportUrl"
+                );
+
+            const status =
+                document.getElementById(
+                    "importStatus"
+                );
+
+            const url =
+                urlInput.value.trim();
+
+
+            if (!url) {
+
+                status.textContent =
+                    "Please paste a job URL.";
+
+                status.style.color =
+                    "#dc2626";
+
+                return;
+            }
+
+
+            try {
+
+                const parsedUrl =
+                    new URL(url);
+
+
+                if (
+                    parsedUrl.protocol !== "http:" &&
+                    parsedUrl.protocol !== "https:"
+                ) {
+
+                    throw new Error(
+                        "Invalid URL."
+                    );
+
+                }
+
+
+            } catch {
+
+                status.textContent =
+                    "Please enter a valid http or https job URL.";
+
+                status.style.color =
+                    "#dc2626";
+
+                return;
+            }
+
+
+            status.textContent =
+                "Fetching job details...";
+
+            status.style.color =
+                "#475569";
+
+
+            const fetchButton =
+                document.getElementById(
+                    "fetchJobButton"
+                );
+
+
+            fetchButton.disabled = true;
+
+            fetchButton.textContent =
+                "Fetching...";
+
+
+            try {
+
+                const readerUrl =
+                    "https://r.jina.ai/" + url;
+
+
+                const response =
+                    await fetch(
+                        readerUrl
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to fetch job page."
+                    );
+
+                }
+
+
+                const text =
+                    await response.text();
+
+
+                if (
+                    !text ||
+                    text.length < 100
+                ) {
+
+                    throw new Error(
+                        "Job page content not available."
+                    );
+
+                }
+
+
+                // =================================================
+                // TITLE
+                // =================================================
+
+                const titleMatch =
+                    text.match(
+                        /(?:Job Title|Title|Position)\s*[:\-]\s*(.+)/i
+                    );
+
+
+                // =================================================
+                // COMPANY
+                // =================================================
+
+                const companyMatch =
+                    text.match(
+                        /(?:Company|Employer|Organisation|Organization)\s*[:\-]\s*(.+)/i
+                    );
+
+
+                // =================================================
+                // LOCATION
+                // =================================================
+
+                const locationMatch =
+                    text.match(
+                        /(?:Location|Job Location)\s*[:\-]\s*(.+)/i
+                    );
+
+
+                // =================================================
+                // EXPERIENCE
+                // =================================================
+
+                const experienceMatch =
+                    text.match(
+                        /(?:Experience|Years of Experience|Experience Required)\s*[:\-]\s*(.+)/i
+                    );
+
+
+                // =================================================
+                // SALARY
+                // =================================================
+
+                const salaryMatch =
+                    text.match(
+                        /(?:Salary|CTC|Compensation)\s*[:\-]\s*(.+)/i
+                    );
+
+
+                if (titleMatch) {
+
+                    document.getElementById(
+                        "jobTitle"
+                    ).value =
+                        cleanImportedValue(
+                            titleMatch[1]
+                        );
+
+                }
+
+
+                if (companyMatch) {
+
+                    document.getElementById(
+                        "jobCompany"
+                    ).value =
+                        cleanImportedValue(
+                            companyMatch[1]
+                        );
+
+                }
+
+
+                if (locationMatch) {
+
+                    document.getElementById(
+                        "jobLocation"
+                    ).value =
+                        cleanImportedValue(
+                            locationMatch[1]
+                        );
+
+                }
+
+
+                if (experienceMatch) {
+
+                    document.getElementById(
+                        "jobExperience"
+                    ).value =
+                        cleanImportedValue(
+                            experienceMatch[1]
+                        );
+
+                }
+
+
+                if (salaryMatch) {
+
+                    document.getElementById(
+                        "jobSalary"
+                    ).value =
+                        cleanImportedValue(
+                            salaryMatch[1]
+                        );
+
+                }
+
+
+                // =================================================
+                // APPLY URL
+                // =================================================
+
+                document.getElementById(
+                    "jobApplyUrl"
+                ).value =
+                    url;
+
+
+                // =================================================
+                // DESCRIPTION
+                // =================================================
+
+                document.getElementById(
+                    "jobDescription"
+                ).value =
+                    cleanJobDescription(
+                        text
+                    );
+
+
+                status.textContent =
+                    "Job details fetched. Please verify all fields before publishing.";
+
+                status.style.color =
+                    "#16a34a";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Job import error:",
+                    error
+                );
+
+
+                status.textContent =
+                    "Could not fetch this job page. The website may block automated access. Try another public job URL.";
+
+                status.style.color =
+                    "#dc2626";
+
+            } finally {
+
+                fetchButton.disabled = false;
+
+                fetchButton.textContent =
+                    "Fetch Job Details";
+
+            }
+
+        }
+
+
+        // =====================================================
+        // CLEAN IMPORTED VALUE
+        // =====================================================
+
+        function cleanImportedValue(value) {
+
+            return String(
+                value || ""
+            )
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
+
+        }
+
+
+        // =====================================================
+        // CLEAN DESCRIPTION
+        // =====================================================
+
+        function cleanJobDescription(text) {
+
+            let cleaned =
+                String(
+                    text || ""
+                )
+                .replace(
+                    /\r/g,
+                    ""
+                )
+                .replace(
+                    /\n{3,}/g,
+                    "\n\n"
+                )
+                .trim();
+
+
+            if (
+                cleaned.length >
+                8000
+            ) {
+
+                cleaned =
+                    cleaned.slice(
+                        0,
+                        8000
+                    );
+
+            }
+
+
+            return cleaned;
+
+        }
+
+
+        // =====================================================
+        // FETCH BUTTON
+        // =====================================================
+
+        document
+            .getElementById(
+                "fetchJobButton"
+            )
+            .addEventListener(
+                "click",
+                fetchJobDetails
+            );
+
+
+        // =====================================================
+        // ADMIN LOGIN
 
 // =====================================================
 // ADMIN LOGIN
