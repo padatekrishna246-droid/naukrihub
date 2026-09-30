@@ -2,8 +2,7 @@ name: NaukriHub Auto Job Pages
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/15 * * * *"
+
   push:
     paths:
       - "generate-jobs.js"
