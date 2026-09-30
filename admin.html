@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -491,6 +491,7 @@ textarea:focus{
     }
 
 }
+
 /* ================= QUICK ADD JOB BUTTON ================= */
 
 #addButton{
@@ -508,79 +509,18 @@ textarea:focus{
     transform:translateY(-2px);
 }
 
-/* MOBILE */
 @media(max-width:700px){
+
     #addButton{
         right:15px;
         bottom:15px;
         padding:12px 17px;
         font-size:14px;
     }
+
 }
-        /* ================= JOB IMPORT ================= */
 
-        .job-import-box {
-            background: #f8fafc;
-            border: 1px solid #dbe3ef;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
 
-        .job-import-box h3 {
-            margin-bottom: 8px;
-        }
-
-        .job-import-box p {
-            color: #737d8f;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .import-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .import-row input {
-            flex: 1;
-        }
-
-        .fetch-btn {
-            border: none;
-            background: #2563eb;
-            color: #ffffff;
-            padding: 12px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .fetch-btn:hover {
-            opacity: 0.9;
-        }
-
-        .fetch-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .import-status {
-            margin-top: 12px;
-            font-size: 14px;
-        }
-
-        @media (max-width: 700px) {
-            .import-row {
-                flex-direction: column;
-            }
-
-            .fetch-btn {
-                width: 100%;
-            }
-        }
-
-        /* ================= END JOB IMPORT ================= */
 </style>
 
 </head>
@@ -607,7 +547,6 @@ textarea:focus{
             Admin Panel
         </p>
 
-
         <div class="form-group">
 
             <label>
@@ -622,7 +561,6 @@ textarea:focus{
             >
 
         </div>
-
 
         <div class="form-group">
 
@@ -639,14 +577,12 @@ textarea:focus{
 
         </div>
 
-
         <button
             class="login-btn"
             id="loginButton"
         >
             Login
         </button>
-
 
         <p
             class="error"
@@ -675,7 +611,6 @@ textarea:focus{
         <span>Naukri</span>Hub Admin
     </div>
 
-
     <button
         class="logout-btn"
         id="logoutButton"
@@ -702,237 +637,13 @@ textarea:focus{
     </div>
 
 
+    
+
     <!-- =================================================
-                     JOB IMPORT
-                     ================================================= -->
-
-                <div class="job-import-box">
-
-                    <h3>
-                        Import Job Automatically
-                    </h3>
-
-                    <p>
-                        Paste a direct public job URL and fetch available job details automatically.
-                    </p>
-
-                    <div class="import-row">
-
-                        <input
-                            type="url"
-                            id="jobImportUrl"
-                            placeholder="https://example.com/job/123"
-                        >
-
-                        <button
-                            type="button"
-                            class="fetch-btn"
-                            id="fetchJobButton"
-                        >
-                            Fetch Job Details
-                        </button>
-
-                    </div>
-
-                    <div
-                        id="importStatus"
-                        class="import-status"
-                    ></div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Job Title *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="jobTitle"
-                        placeholder="Quality Engineer"
-                    >
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label>
-                            Company Name *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="jobCompany"
-                            placeholder="ABC Manufacturing"
-                        >
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label>
-                            Location *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="jobLocation"
-                            placeholder="Goa"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label>
-                            Category *
-                        </label>
-
-                        <select id="jobCategory">
-
-                            <option value="">
-                                Select Category
-                            </option>
-
-                            <option value="Quality">
-                                Quality
-                            </option>
-
-                            <option value="Production">
-                                Production
-                            </option>
-
-                            <option value="Mechanical">
-                                Mechanical
-                            </option>
-
-                            <option value="IT">
-                                IT & Software
-                            </option>
-
-                            <option value="Sales">
-                                Sales
-                            </option>
-
-                            <option value="Engineering">
-                                Engineering
-                            </option>
-
-                            <option value="HR">
-                                Human Resources
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Experience *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="jobExperience"
-                            list="experienceOptions"
-                            placeholder="Select or type experience"
-                        >
-
-                        <datalist id="experienceOptions">
-
-                            <option value="Fresher"></option>
-                            <option value="1-3 Years"></option>
-                            <option value="3-5 Years"></option>
-                            <option value="4-5 Years"></option>
-                            <option value="5+ Years"></option>
-                            <option value="8+ Years"></option>
-
-                        </datalist>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label>
-                            Job Type *
-                        </label>
-
-                        <select id="jobType">
-
-                            <option value="Full Time">
-                                Full Time
-                            </option>
-
-                            <option value="Part Time">
-                                Part Time
-                            </option>
-
-                            <option value="Remote">
-                                Remote
-                            </option>
-
-                            <option value="Contract">
-                                Contract
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Salary
-                        </label>
-
-                        <input
-                            type="text"
-                            id="jobSalary"
-                            placeholder="₹25,000 - ₹40,000"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Job Description *
-                    </label>
-
-                    <textarea
-                        id="jobDescription"
-                        placeholder="Enter job description..."
-                    ></textarea>
-
-                </div>
-
-<!-- =================================================
          STATS
          ================================================= -->
 
     <div class="stats">
-
 
         <div class="stat-card">
 
@@ -1017,7 +728,6 @@ textarea:focus{
 
         </div>
 
-
         <div
             class="jobs-list"
             id="pendingJobsList"
@@ -1046,7 +756,6 @@ textarea:focus{
             </span>
 
         </div>
-
 
         <div
             class="jobs-list"
@@ -1077,7 +786,6 @@ textarea:focus{
 
         </div>
 
-
         <div
             class="jobs-list"
             id="rejectedJobsList"
@@ -1097,7 +805,6 @@ textarea:focus{
             <h2>
                 Admin Job Management
             </h2>
-
 
             <button
                 class="add-btn"
@@ -1143,7 +850,6 @@ textarea:focus{
 
         <div class="form-row">
 
-
             <div class="form-group">
 
                 <label>
@@ -1173,12 +879,10 @@ textarea:focus{
 
             </div>
 
-
         </div>
 
 
         <div class="form-row">
-
 
             <div class="form-group">
 
@@ -1229,36 +933,34 @@ textarea:focus{
 
             <div class="form-group">
 
-    <label>
-        Experience *
-    </label>
+                <label>
+                    Experience *
+                </label>
 
-    <input
-        type="text"
-        id="jobExperience"
-        list="experienceOptions"
-        placeholder="Select or type experience"
-    >
+                <input
+                    type="text"
+                    id="jobExperience"
+                    list="experienceOptions"
+                    placeholder="Select or type experience"
+                >
 
-    <datalist id="experienceOptions">
+                <datalist id="experienceOptions">
 
-        <option value="Fresher">
-        <option value="1-3 Years">
-        <option value="3-5 Years">
-        <option value="4-5 Years">
-        <option value="5+ Years">
-        <option value="8+ Years">
+                    <option value="Fresher">
+                    <option value="1-3 Years">
+                    <option value="3-5 Years">
+                    <option value="4-5 Years">
+                    <option value="5+ Years">
+                    <option value="8+ Years">
 
-    </datalist>
+                </datalist>
 
-</div>
-
+            </div>
 
         </div>
 
 
         <div class="form-row">
-
 
             <div class="form-group">
 
@@ -1304,7 +1006,6 @@ textarea:focus{
                 >
 
             </div>
-
 
         </div>
 
@@ -1440,6 +1141,18 @@ textarea:focus{
 
 <script type="module">
 
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
@@ -1492,6 +1205,7 @@ const firebaseConfig = {
 
     measurementId:
         "G-3307PZE918"
+
 };
 
 
@@ -1547,364 +1261,6 @@ let editingId =
 
 let allAdminJobs =
     [];
-
-
-// =====================================================
-
-        async function fetchJobDetails() {
-
-            const urlInput =
-                document.getElementById(
-                    "jobImportUrl"
-                );
-
-            const status =
-                document.getElementById(
-                    "importStatus"
-                );
-
-            const url =
-                urlInput.value.trim();
-
-
-            if (!url) {
-
-                status.textContent =
-                    "Please paste a job URL.";
-
-                status.style.color =
-                    "#dc2626";
-
-                return;
-            }
-
-
-            try {
-
-                const parsedUrl =
-                    new URL(url);
-
-
-                if (
-                    parsedUrl.protocol !== "http:" &&
-                    parsedUrl.protocol !== "https:"
-                ) {
-
-                    throw new Error(
-                        "Invalid URL."
-                    );
-
-                }
-
-
-            } catch {
-
-                status.textContent =
-                    "Please enter a valid http or https job URL.";
-
-                status.style.color =
-                    "#dc2626";
-
-                return;
-            }
-
-
-            status.textContent =
-                "Fetching job details...";
-
-            status.style.color =
-                "#475569";
-
-
-            const fetchButton =
-                document.getElementById(
-                    "fetchJobButton"
-                );
-
-
-            fetchButton.disabled = true;
-
-            fetchButton.textContent =
-                "Fetching...";
-
-
-            try {
-
-                const readerUrl =
-                    "https://r.jina.ai/" + url;
-
-
-                const response =
-                    await fetch(
-                        readerUrl
-                    );
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Unable to fetch job page."
-                    );
-
-                }
-
-
-                const text =
-                    await response.text();
-
-
-                if (
-                    !text ||
-                    text.length < 100
-                ) {
-
-                    throw new Error(
-                        "Job page content not available."
-                    );
-
-                }
-
-
-                // =================================================
-                // TITLE
-                // =================================================
-
-                const titleMatch =
-                    text.match(
-                        /(?:Job Title|Title|Position)\s*[:\-]\s*(.+)/i
-                    );
-
-
-                // =================================================
-                // COMPANY
-                // =================================================
-
-                const companyMatch =
-                    text.match(
-                        /(?:Company|Employer|Organisation|Organization)\s*[:\-]\s*(.+)/i
-                    );
-
-
-                // =================================================
-                // LOCATION
-                // =================================================
-
-                const locationMatch =
-                    text.match(
-                        /(?:Location|Job Location)\s*[:\-]\s*(.+)/i
-                    );
-
-
-                // =================================================
-                // EXPERIENCE
-                // =================================================
-
-                const experienceMatch =
-                    text.match(
-                        /(?:Experience|Years of Experience|Experience Required)\s*[:\-]\s*(.+)/i
-                    );
-
-
-                // =================================================
-                // SALARY
-                // =================================================
-
-                const salaryMatch =
-                    text.match(
-                        /(?:Salary|CTC|Compensation)\s*[:\-]\s*(.+)/i
-                    );
-
-
-                if (titleMatch) {
-
-                    document.getElementById(
-                        "jobTitle"
-                    ).value =
-                        cleanImportedValue(
-                            titleMatch[1]
-                        );
-
-                }
-
-
-                if (companyMatch) {
-
-                    document.getElementById(
-                        "jobCompany"
-                    ).value =
-                        cleanImportedValue(
-                            companyMatch[1]
-                        );
-
-                }
-
-
-                if (locationMatch) {
-
-                    document.getElementById(
-                        "jobLocation"
-                    ).value =
-                        cleanImportedValue(
-                            locationMatch[1]
-                        );
-
-                }
-
-
-                if (experienceMatch) {
-
-                    document.getElementById(
-                        "jobExperience"
-                    ).value =
-                        cleanImportedValue(
-                            experienceMatch[1]
-                        );
-
-                }
-
-
-                if (salaryMatch) {
-
-                    document.getElementById(
-                        "jobSalary"
-                    ).value =
-                        cleanImportedValue(
-                            salaryMatch[1]
-                        );
-
-                }
-
-
-                // =================================================
-                // APPLY URL
-                // =================================================
-
-                document.getElementById(
-                    "jobApplyUrl"
-                ).value =
-                    url;
-
-
-                // =================================================
-                // DESCRIPTION
-                // =================================================
-
-                document.getElementById(
-                    "jobDescription"
-                ).value =
-                    cleanJobDescription(
-                        text
-                    );
-
-
-                status.textContent =
-                    "Job details fetched. Please verify all fields before publishing.";
-
-                status.style.color =
-                    "#16a34a";
-
-
-            } catch (error) {
-
-                console.error(
-                    "Job import error:",
-                    error
-                );
-
-
-                status.textContent =
-                    "Could not fetch this job page. The website may block automated access. Try another public job URL.";
-
-                status.style.color =
-                    "#dc2626";
-
-            } finally {
-
-                fetchButton.disabled = false;
-
-                fetchButton.textContent =
-                    "Fetch Job Details";
-
-            }
-
-        }
-
-
-        // =====================================================
-        // CLEAN IMPORTED VALUE
-        // =====================================================
-
-        function cleanImportedValue(value) {
-
-            return String(
-                value || ""
-            )
-            .replace(
-                /\s+/g,
-                " "
-            )
-            .trim();
-
-        }
-
-
-        // =====================================================
-        // CLEAN DESCRIPTION
-        // =====================================================
-
-        function cleanJobDescription(text) {
-
-            let cleaned =
-                String(
-                    text || ""
-                )
-                .replace(
-                    /\r/g,
-                    ""
-                )
-                .replace(
-                    /\n{3,}/g,
-                    "\n\n"
-                )
-                .trim();
-
-
-            if (
-                cleaned.length >
-                8000
-            ) {
-
-                cleaned =
-                    cleaned.slice(
-                        0,
-                        8000
-                    );
-
-            }
-
-
-            return cleaned;
-
-        }
-
-
-        // =====================================================
-        // FETCH BUTTON
-        // =====================================================
-
-        document
-            .getElementById(
-                "fetchJobButton"
-            )
-            .addEventListener(
-                "click",
-                fetchJobDetails
-            );
-
-
-        // =====================================================
-        // ADMIN LOGIN
-
 // =====================================================
 // ADMIN LOGIN
 // =====================================================
@@ -3045,7 +2401,13 @@ function closeDetails(){
         modal.style.display =
             "none";
     }
+
 }
+
+
+// Make function available to HTML onclick
+window.closeDetails =
+    closeDetails;
 
 
 // =====================================================
@@ -3350,209 +2712,203 @@ async function(){
 // =====================================================
 // FORM DATA
 // =====================================================
-
 function getFormData(){
 
-    const title =
-        document
-        .getElementById(
-            "jobTitle"
-        )
-        .value
-        .trim();
+    const form = document.getElementById("addJobForm");
 
+    if(!form){
+        return null;
+    }
+
+    const title =
+        form.querySelector("#jobTitle")?.value.trim() || "";
 
     const company =
-        document
-        .getElementById(
-            "jobCompany"
-        )
-        .value
-        .trim();
-
+        form.querySelector("#jobCompany")?.value.trim() || "";
 
     const location =
-        document
-        .getElementById(
-            "jobLocation"
-        )
-        .value
-        .trim();
-
+        form.querySelector("#jobLocation")?.value.trim() || "";
 
     const category =
-        document
-        .getElementById(
-            "jobCategory"
-        )
-        .value;
-
+        form.querySelector("#jobCategory")?.value || "";
 
     const experience =
-        document
-        .getElementById(
-            "jobExperience"
-        )
-        .value;
-
+        form.querySelector("#jobExperience")?.value || "";
 
     const type =
-        document
-        .getElementById(
-            "jobType"
-        )
-        .value;
-
+        form.querySelector("#jobType")?.value || "";
 
     const salary =
-        document
-        .getElementById(
-            "jobSalary"
-        )
-        .value
-        .trim();
-
+        form.querySelector("#jobSalary")?.value.trim() || "";
 
     const description =
-        document
-        .getElementById(
-            "jobDescription"
-        )
-        .value
-        .trim();
-
+        form.querySelector("#jobDescription")?.value.trim() || "";
 
     const applyUrl =
-        document
-        .getElementById(
-            "jobApplyUrl"
-        )
-        .value
-        .trim();
-
+        form.querySelector("#jobApplyUrl")?.value.trim() || "";
 
     const applicationEmail =
-        document
-        .getElementById(
-            "jobApplyEmail"
-        )
-        .value
-        .trim();
+        form.querySelector("#jobApplyEmail")?.value.trim() || "";
 
+
+    // Required fields
 
     if(
-
         !title ||
         !company ||
         !location ||
         !category ||
         !experience ||
         !description
-
     ){
-
         return null;
     }
 
 
-    // =================================================
-    // AT LEAST ONE APPLICATION METHOD REQUIRED
-    // =================================================
+    // At least one application method
 
     if(
-
         !applyUrl &&
         !applicationEmail
-
     ){
-
         return null;
     }
 
 
-    // =================================================
-    // VALIDATE URL ONLY IF PROVIDED
-    // =================================================
+    // Validate URL only when provided
 
     if(applyUrl){
 
         try{
 
-            const url =
-                new URL(
-                    applyUrl
-                );
-
+            const url = new URL(applyUrl);
 
             if(
-
-                url.protocol !==
-                    "http:" &&
-
-                url.protocol !==
-                    "https:"
-
+                url.protocol !== "http:" &&
+                url.protocol !== "https:"
             ){
-
                 return null;
             }
 
-
-        }catch{
+        }catch(error){
 
             return null;
         }
-
     }
 
 
-    // =================================================
-    // VALIDATE EMAIL ONLY IF PROVIDED
-    // =================================================
+    // Validate email only when provided
 
     if(applicationEmail){
 
         const emailPattern =
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
-        if(
-            !emailPattern.test(
-                applicationEmail
-            )
-        ){
-
+        if(!emailPattern.test(applicationEmail)){
             return null;
         }
-
     }
 
 
     return {
 
         title,
-
         company,
-
         location,
-
         category,
-
         experience,
-
         type,
 
         salary:
-            salary ||
-            "Salary not disclosed",
+            salary || "Salary not disclosed",
 
         description,
 
         applyUrl,
-
         applicationEmail
 
     };
+}
+// =====================================================
+// RESET FORM
+// =====================================================
+
+function resetForm(){
+
+    const form =
+        document.getElementById(
+            "addJobForm"
+        );
+
+
+    if(!form){
+
+        return;
+    }
+
+
+    form.querySelector(
+        "#jobTitle"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobCompany"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobLocation"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobCategory"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobExperience"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobType"
+    ).value =
+        "Full Time";
+
+
+    form.querySelector(
+        "#jobSalary"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobDescription"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobApplyUrl"
+    ).value =
+        "";
+
+
+    form.querySelector(
+        "#jobApplyEmail"
+    ).value =
+        "";
+
+
+    editingId =
+        null;
 
 }
 
@@ -3561,9 +2917,9 @@ function getFormData(){
 // EDIT JOB
 // =====================================================
 
-async function editJob(id){
+function editJob(id){
 
-    const selected =
+    const job =
         allAdminJobs.find(
             item =>
                 String(
@@ -3573,141 +2929,110 @@ async function editJob(id){
         );
 
 
-    if(!selected){
+    if(!job){
 
         alert(
-            "Job not found!"
+            "Job not found."
         );
 
         return;
     }
 
 
+    const form =
+        document.getElementById(
+            "addJobForm"
+        );
+
+
     editingId =
         id;
 
 
-    document
-    .getElementById(
-        "jobTitle"
-    )
-    .value =
-        selected.title ||
-        "";
+    form.querySelector(
+        "#jobTitle"
+    ).value =
+        job.title || "";
 
 
-    document
-    .getElementById(
-        "jobCompany"
-    )
-    .value =
-        selected.company ||
-        "";
+    form.querySelector(
+        "#jobCompany"
+    ).value =
+        job.company || "";
 
 
-    document
-    .getElementById(
-        "jobLocation"
-    )
-    .value =
-        selected.location ||
-        "";
+    form.querySelector(
+        "#jobLocation"
+    ).value =
+        job.location || "";
 
 
-    document
-    .getElementById(
-        "jobCategory"
-    )
-    .value =
-        selected.category ||
-        "";
+    form.querySelector(
+        "#jobCategory"
+    ).value =
+        job.category || "";
 
 
-    document
-    .getElementById(
-        "jobExperience"
-    )
-    .value =
-        selected.experience ||
-        "";
+    form.querySelector(
+        "#jobExperience"
+    ).value =
+        job.experience || "";
 
 
-    document
-    .getElementById(
-        "jobType"
-    )
-    .value =
-        selected.type ||
-        "Full Time";
+    form.querySelector(
+        "#jobType"
+    ).value =
+        job.type || "Full Time";
 
 
-    document
-    .getElementById(
-        "jobSalary"
-    )
-    .value =
-        selected.salary ||
-        "";
+    form.querySelector(
+        "#jobSalary"
+    ).value =
+        job.salary || "";
 
 
-    document
-    .getElementById(
-        "jobDescription"
-    )
-    .value =
-        selected.description ||
-        "";
+    form.querySelector(
+        "#jobDescription"
+    ).value =
+        job.description || "";
 
 
-    document
-    .getElementById(
-        "jobApplyUrl"
-    )
-    .value =
-        selected.applyUrl ||
-        "";
+    form.querySelector(
+        "#jobApplyUrl"
+    ).value =
+        job.applyUrl || "";
 
 
-    document
-    .getElementById(
-        "jobApplyEmail"
-    )
-    .value =
-        selected.applicationEmail ||
-        "";
+    form.querySelector(
+        "#jobApplyEmail"
+    ).value =
+        job.applicationEmail || "";
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "formTitle"
-    )
-    .textContent =
+    ).textContent =
         "Edit Job";
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "saveJobButton"
-    )
-    .textContent =
+    ).textContent =
         "Update Job";
 
 
-    document
-    .getElementById(
-        "addJobForm"
-    )
-    .style.display =
+    form.style.display =
         "block";
 
 
-    document
-    .getElementById(
-        "addJobForm"
-    )
-    .scrollIntoView({
+    form.scrollIntoView({
+
         behavior:
-            "smooth"
+            "smooth",
+
+        block:
+            "start"
+
     });
 
 }
@@ -3719,11 +3044,43 @@ async function editJob(id){
 
 async function deleteJob(id){
 
-    if(
-        !confirm(
-            "Delete this job permanently?"
-        )
-    ){
+    if(!id){
+
+        alert(
+            "Job ID not found."
+        );
+
+        return;
+    }
+
+
+    const job =
+        allAdminJobs.find(
+            item =>
+                String(
+                    item.id
+                ) ===
+                String(id)
+        );
+
+
+    if(!job){
+
+        alert(
+            "Job not found."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${job.title || "this job"}"?\n\nThis action cannot be undone.`
+        );
+
+
+    if(!confirmed){
 
         return;
     }
@@ -3742,18 +3099,28 @@ async function deleteJob(id){
         );
 
 
+        allAdminJobs =
+            allAdminJobs.filter(
+                item =>
+                    String(
+                        item.id
+                    ) !==
+                    String(id)
+            );
+
+
+        showJobs();
+
+
         alert(
             "Job deleted successfully!"
         );
 
 
-        await loadJobs();
-
-
     }catch(error){
 
         console.error(
-            "Delete error:",
+            "Delete job error:",
             error
         );
 
@@ -3762,13 +3129,14 @@ async function deleteJob(id){
             "Delete error: " +
             error.message
         );
+
     }
 
 }
 
 
 // =====================================================
-// CANCEL
+// CANCEL BUTTON
 // =====================================================
 
 document
@@ -3787,176 +3155,28 @@ function(){
 
     document
     .getElementById(
+        "formTitle"
+    )
+    .textContent =
+        "Add New Job";
+
+
+    document
+    .getElementById(
+        "saveJobButton"
+    )
+    .textContent =
+        "Save Job";
+
+
+    document
+    .getElementById(
         "addJobForm"
     )
     .style.display =
         "none";
 
 };
-
-
-// =====================================================
-// RESET FORM
-// =====================================================
-
-function resetForm(){
-
-    document
-    .getElementById(
-        "jobTitle"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobCompany"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobLocation"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobCategory"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobExperience"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobType"
-    )
-    .value =
-        "Full Time";
-
-
-    document
-    .getElementById(
-        "jobSalary"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobDescription"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobApplyUrl"
-    )
-    .value =
-        "";
-
-
-    document
-    .getElementById(
-        "jobApplyEmail"
-    )
-    .value =
-        "";
-
-}
-
-
-// =====================================================
-// SECURITY
-// =====================================================
-
-function escapeHTML(
-    value
-){
-
-    return String(
-        value || ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-// =====================================================
-// CLOSE MODAL OUTSIDE CLICK
-// =====================================================
-
-window.addEventListener(
-    "click",
-    function(event){
-
-        const modal =
-            document.getElementById(
-                "detailsModal"
-            );
-
-
-        if(
-            event.target ===
-            modal
-        ){
-
-            closeDetails();
-
-        }
-
-    }
-);
-
-
-// =====================================================
-// START
-// =====================================================
-
-console.log(
-    "NaukriHub Admin Panel - Separate Admin Auth Ready"
-);
 
 </script>
 
