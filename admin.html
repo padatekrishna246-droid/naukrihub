@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -818,8 +818,92 @@ textarea:focus{
     </div>
 
 
-    <!-- =================================================
-         ADD / EDIT JOB FORM
+    <!-- MASTER JOB BOX -->
+<div class="form-section" id="masterJobSection">
+
+    <h2>Bulk Job Posting</h2>
+
+    <p style="margin:0 0 12px;color:#6b7280;">
+        Paste multiple jobs in one box. Each job will be created as a separate job post.
+    </p>
+
+    <textarea
+        id="masterJobBox"
+        rows="18"
+        placeholder="Paste multiple jobs like this:
+
+--- JOB 1 ---
+Job Title: Quality Engineer
+Company Name: ABC Engineering
+Location: Goa
+Category: Quality
+Experience: 2-5 Years
+Job Type: Full Time
+Salary: ₹4-6 LPA
+Job Description:
+Responsible for quality inspection and process improvement.
+Apply URL: https://example.com/apply
+Application Email: hr@example.com
+
+--- JOB 2 ---
+Job Title: Production Engineer
+Company Name: XYZ Industries
+Location: Pune
+Category: Engineering
+Experience: 1-3 Years
+Job Type: Full Time
+Salary: ₹3-5 LPA
+Job Description:
+Manage production activities and coordinate with teams.
+Apply URL: https://example.com/apply2
+Application Email: jobs@example.com"
+        style="width:100%;box-sizing:border-box;"
+    ></textarea>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+
+        <button
+            type="button"
+            id="proceedMasterJob"
+        >
+            Parse Jobs
+        </button>
+
+        <button
+            type="button"
+            id="clearMasterJobs"
+        >
+            Clear
+        </button>
+
+    </div>
+
+    <div
+        id="bulkJobPreview"
+        style="display:none;margin-top:20px;"
+    >
+
+        <h3 style="margin-bottom:10px;">
+            Bulk Job Preview
+        </h3>
+
+        <div id="bulkJobList"></div>
+
+        <button
+            type="button"
+            id="publishAllJobs"
+            style="margin-top:15px;"
+        >
+            Publish All Valid Jobs
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     ADD / EDIT JOB FORM
          ================================================= -->
 
     <div
@@ -2620,7 +2704,15 @@ async function(){
 
         return;
     }
+const duplicate = findDuplicateJob(job, editingId);
 
+if (duplicate) {
+    alert(
+        `Duplicate Job!\n\n` +
+        `in "${duplicate.location}" is already posted on NaukriHub.`
+    );
+    return;
+}
 
     try{
 
@@ -2829,6 +2921,50 @@ function getFormData(){
 
     };
 }
+function normalizeJobValue(value) {
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+function findDuplicateJob(job, excludeId = null) {
+
+    const title = normalizeJobValue(job.title);
+    const company = normalizeJobValue(job.company);
+    const location = normalizeJobValue(job.location);
+    const applyUrl = normalizeJobValue(job.applyUrl);
+
+    return allAdminJobs.find(existing => {
+
+        if (excludeId && String(existing.id) === String(excludeId)) {
+            return false;
+        }
+
+        const sameTitle =
+            normalizeJobValue(existing.title) === title;
+
+        const sameCompany =
+            normalizeJobValue(existing.company) === company;
+
+        const sameLocation =
+            normalizeJobValue(existing.location) === location;
+
+        const existingUrl =
+            normalizeJobValue(existing.applyUrl);
+
+        const sameUrl =
+            applyUrl &&
+            existingUrl &&
+            existingUrl === applyUrl;
+
+        return (
+            sameTitle &&
+            sameCompany &&
+            sameLocation
+        ) || sameUrl;
+    }) || null;
+}
 // =====================================================
 // RESET FORM
 // =====================================================
@@ -2912,9 +3048,590 @@ function resetForm(){
 
 }
 
+// =====================================================
+// MASTER JOB BOX → EXISTING ADD JOB FORM
+// =====================================================
+
+// =====================================================
+// BULK MASTER JOB BOX
+// =====================================================
+
+let bulkParsedJobs = [];
+
+const MASTER_JOB_LABELS = [
+    "Job Title",
+    "Title",
+    "Company Name",
+    "Company",
+    "Location",
+    "Category",
+    "Experience",
+    "Experience Required",
+    "Job Type",
+    "Employment Type",
+    "Salary",
+    "CTC",
+    "Salary Range",
+    "Job Description",
+    "Description",
+    "Apply URL",
+    "Application URL",
+    "Apply Link",
+    "Application Link",
+    "Application Email",
+    "Email",
+    "Apply Email"
+];
+
+function cleanMasterValue(value) {
+    return String(value || "").replace(/\r/g, "").trim();
+}
+
+function normalizeMasterCategory(value) {
+    const v = cleanMasterValue(value).toLowerCase();
+
+    if (v.includes("quality")) return "Quality";
+    if (v.includes("production")) return "Production";
+    if (v.includes("mechanical")) return "Mechanical";
+    if (v === "it" || v.includes("software")) return "IT";
+    if (v.includes("sales")) return "Sales";
+    if (v.includes("engineering")) return "Engineering";
+    if (v.includes("human") || v.includes("hr")) return "HR";
+
+    return cleanMasterValue(value);
+}
+
+function normalizeMasterJobType(value) {
+    const v = cleanMasterValue(value).toLowerCase();
+
+    if (v.includes("full")) return "Full Time";
+    if (v.includes("part")) return "Part Time";
+    if (v.includes("remote")) return "Remote";
+    if (v.includes("contract")) return "Contract";
+    if (v.includes("intern")) return "Internship";
+    if (v.includes("temporary")) return "Temporary";
+
+    return cleanMasterValue(value);
+}
+
+function getMasterFieldFromBlock(block, labels) {
+
+    const allLabels = MASTER_JOB_LABELS
+        .map(label => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("|");
+
+    const wantedLabels = labels
+        .map(label => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+        .join("|");
+
+    const regex = new RegExp(
+        "^\\s*(?:" + wantedLabels + ")\\s*:\\s*([\\s\\S]*?)(?=\\n\\s*(?:" + allLabels + ")\\s*:\\s*|$)",
+        "im"
+    );
+
+    const match = block.match(regex);
+
+    return match ? cleanMasterValue(match[1]) : "";
+}
+
+function splitMasterJobs(text) {
+
+    const cleaned = String(text || "")
+        .replace(/\r/g, "")
+        .trim();
+
+    if (!cleaned) return [];
+
+    const separatorRegex =
+        /(?:^|\n)\s*(?:-{2,}\s*)?JOB\s*\d+\s*(?:-{2,})?\s*(?:\n|$)/gi;
+
+    if (separatorRegex.test(cleaned)) {
+
+        const blocks = cleaned
+            .split(separatorRegex)
+            .map(block => block.trim())
+            .filter(Boolean);
+
+        if (blocks.length > 1) {
+            return blocks;
+        }
+    }
+
+    const lines = cleaned.split("\n");
+    const blocks = [];
+    let current = [];
+
+    for (const line of lines) {
+
+        const newJob =
+            /^\s*Job Title\s*:/i.test(line) &&
+            current.some(x =>
+                /^\s*Job Title\s*:/i.test(x)
+            );
+
+        if (newJob) {
+            blocks.push(current.join("\n").trim());
+            current = [line];
+        } else {
+            current.push(line);
+        }
+    }
+
+    if (current.join("\n").trim()) {
+        blocks.push(current.join("\n").trim());
+    }
+
+    return blocks.filter(Boolean);
+}
+
+function parseMasterJobBlock(block, index) {
+
+    const title = getMasterFieldFromBlock(block, [
+        "Job Title",
+        "Title"
+    ]);
+
+    const company = getMasterFieldFromBlock(block, [
+        "Company Name",
+        "Company"
+    ]);
+
+    const location = getMasterFieldFromBlock(block, [
+        "Location"
+    ]);
+
+    const category = normalizeMasterCategory(
+        getMasterFieldFromBlock(block, ["Category"])
+    );
+
+    const experience = getMasterFieldFromBlock(block, [
+        "Experience",
+        "Experience Required"
+    ]);
+
+    const type = normalizeMasterJobType(
+        getMasterFieldFromBlock(block, [
+            "Job Type",
+            "Employment Type"
+        ])
+    );
+
+    const salary = getMasterFieldFromBlock(block, [
+        "Salary",
+        "CTC",
+        "Salary Range"
+    ]);
+
+    const description = getMasterFieldFromBlock(block, [
+        "Job Description",
+        "Description"
+    ]);
+
+    const applyUrl = getMasterFieldFromBlock(block, [
+        "Apply URL",
+        "Application URL",
+        "Apply Link",
+        "Application Link"
+    ]);
+
+    const applicationEmail = getMasterFieldFromBlock(block, [
+        "Application Email",
+        "Email",
+        "Apply Email"
+    ]);
+
+    const errors = [];
+
+    if (!title) errors.push("Job Title missing");
+    if (!company) errors.push("Company Name missing");
+    if (!location) errors.push("Location missing");
+    if (!category) errors.push("Category missing");
+    if (!experience) errors.push("Experience missing");
+    if (!description) errors.push("Job Description missing");
+
+    if (!applyUrl && !applicationEmail) {
+        errors.push("Apply URL or Application Email is required");
+    }
+
+    if (applyUrl) {
+
+        try {
+            const url = new URL(applyUrl);
+
+            if (
+                url.protocol !== "http:" &&
+                url.protocol !== "https:"
+            ) {
+                errors.push("Apply URL must use http:// or https://");
+            }
+
+        } catch {
+            errors.push("Invalid Apply URL");
+        }
+    }
+
+    if (applicationEmail) {
+
+        const emailRegex =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(applicationEmail)) {
+            errors.push("Invalid Application Email");
+        }
+    }
+
+    return {
+        index: index + 1,
+        title,
+        company,
+        location,
+        category,
+        experience,
+        type: type || "Full Time",
+        salary: salary || "Not Disclosed",
+        description,
+        applyUrl,
+        applicationEmail,
+        errors,
+        valid: errors.length === 0
+    };
+}
+
+function normalizeBulkDuplicateValue(value) {
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+function findBulkDuplicate(job, existingJobs) {
+
+    const title =
+        normalizeBulkDuplicateValue(job.title);
+
+    const company =
+        normalizeBulkDuplicateValue(job.company);
+
+    const location =
+        normalizeBulkDuplicateValue(job.location);
+
+    const applyUrl =
+        normalizeBulkDuplicateValue(job.applyUrl);
+
+    return existingJobs.find(existing => {
+
+        const existingTitle =
+            normalizeBulkDuplicateValue(existing.title);
+
+        const existingCompany =
+            normalizeBulkDuplicateValue(existing.company);
+
+        const existingLocation =
+            normalizeBulkDuplicateValue(existing.location);
+
+        const existingUrl =
+            normalizeBulkDuplicateValue(
+                existing.applyUrl ||
+                existing.applicationUrl
+            );
+
+        return (
+            (
+                title === existingTitle &&
+                company === existingCompany &&
+                location === existingLocation
+            ) ||
+            (
+                applyUrl &&
+                existingUrl &&
+                applyUrl === existingUrl
+            )
+        );
+    });
+}
+
+function renderBulkPreview() {
+
+    const preview =
+        document.getElementById("bulkJobPreview");
+
+    const list =
+        document.getElementById("bulkJobList");
+
+    if (!preview || !list) return;
+
+    preview.style.display = "block";
+
+    list.innerHTML = bulkParsedJobs.map(job => {
+
+        const errors = job.errors.length
+            ? `
+                <div style="
+                    margin-top:8px;
+                    color:#b91c1c;
+                    font-size:13px;
+                ">
+                    ${job.errors.map(error =>
+                        `<div>• ${error}</div>`
+                    ).join("")}
+                </div>
+              `
+            : "";
+
+        return `
+            <div style="
+                margin-bottom:12px;
+                padding:15px;
+                border:1px solid ${job.valid ? "#bbf7d0" : "#fecaca"};
+                background:${job.valid ? "#f0fdf4" : "#fef2f2"};
+                border-radius:10px;
+            ">
+
+                <div style="
+                    font-weight:800;
+                    color:#111827;
+                ">
+                    Job ${job.index}: ${job.title || "Untitled"}
+                </div>
+
+                <div style="
+                    margin-top:5px;
+                    font-size:14px;
+                    color:#4b5563;
+                ">
+                    ${job.company || "Company missing"}
+                    •
+                    ${job.location || "Location missing"}
+                </div>
+
+                <div style="
+                    margin-top:7px;
+                    font-size:13px;
+                    font-weight:700;
+                    color:${job.valid ? "#166534" : "#b91c1c"};
+                ">
+                    ${job.valid ? "✓ Ready to publish" : "✕ Cannot publish"}
+                </div>
+
+                ${errors}
+
+            </div>
+        `;
+    }).join("");
+}
+
+async function parseAllMasterJobs() {
+
+    const masterBox =
+        document.getElementById("masterJobBox");
+
+    if (!masterBox) {
+        alert("Master Job Box not found.");
+        return;
+    }
+
+    const text = masterBox.value.trim();
+
+    if (!text) {
+        alert("Please paste one or more jobs into the Master Job Box.");
+        return;
+    }
+
+    const blocks = splitMasterJobs(text);
+
+    if (!blocks.length) {
+        alert("No jobs could be detected.");
+        return;
+    }
+
+    bulkParsedJobs = blocks.map(
+        (block, index) =>
+            parseMasterJobBlock(block, index)
+    );
+
+    bulkParsedJobs.forEach(job => {
+
+        if (!job.valid) return;
+
+        const duplicate =
+            findBulkDuplicate(
+                job,
+                allAdminJobs || []
+            );
+
+        if (duplicate) {
+            job.valid = false;
+            job.errors.push("Duplicate job already exists");
+        }
+    });
+
+    for (let i = 0; i < bulkParsedJobs.length; i++) {
+
+        const current = bulkParsedJobs[i];
+
+        if (!current.valid) continue;
+
+        for (let j = 0; j < i; j++) {
+
+            const previous = bulkParsedJobs[j];
+
+            if (!previous.valid) continue;
+
+            const sameJob =
+                normalizeBulkDuplicateValue(current.title) ===
+                normalizeBulkDuplicateValue(previous.title) &&
+                normalizeBulkDuplicateValue(current.company) ===
+                normalizeBulkDuplicateValue(previous.company) &&
+                normalizeBulkDuplicateValue(current.location) ===
+                normalizeBulkDuplicateValue(previous.location);
+
+            const sameUrl =
+                current.applyUrl &&
+                previous.applyUrl &&
+                normalizeBulkDuplicateValue(current.applyUrl) ===
+                normalizeBulkDuplicateValue(previous.applyUrl);
+
+            if (sameJob || sameUrl) {
+                current.valid = false;
+                current.errors.push(
+                    "Duplicate job inside this bulk batch"
+                );
+                break;
+            }
+        }
+    }
+
+    renderBulkPreview();
+
+    const validCount =
+        bulkParsedJobs.filter(job => job.valid).length;
+
+    const invalidCount =
+        bulkParsedJobs.length - validCount;
+
+    alert(
+        `${bulkParsedJobs.length} jobs detected.\n\n` +
+        `${validCount} ready to publish.\n` +
+        `${invalidCount} need correction.`
+    );
+}
+
+async function publishAllBulkJobs() {
+
+    const validJobs =
+        bulkParsedJobs.filter(job => job.valid);
+
+    if (!validJobs.length) {
+        alert("There are no valid jobs to publish.");
+        return;
+    }
+
+    if (!confirm(`Publish ${validJobs.length} job(s) now?`)) {
+        return;
+    }
+
+    const button =
+        document.getElementById("publishAllJobs");
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Publishing...";
+    }
+
+    let successCount = 0;
+    let failedCount = 0;
+
+    for (const job of validJobs) {
+
+        try {
+
+            await addDoc(jobsRef, {
+                title: job.title,
+                company: job.company,
+                location: job.location,
+                category: job.category,
+                experience: job.experience,
+                type: job.type,
+                salary: job.salary,
+                description: job.description,
+                applyUrl: job.applyUrl,
+                applicationEmail: job.applicationEmail,
+                status: "approved",
+                createdAt: new Date().toISOString(),
+                bulkImported: true
+            });
+
+            successCount++;
+
+        } catch (error) {
+
+            console.error("Bulk publish failed:", error);
+            failedCount++;
+        }
+    }
+
+    if (typeof loadJobs === "function") {
+        await loadJobs();
+    }
+
+    if (successCount > 0) {
+
+        const masterBox =
+            document.getElementById("masterJobBox");
+
+        if (masterBox) {
+            masterBox.value = "";
+        }
+
+        bulkParsedJobs = [];
+        renderBulkPreview();
+    }
+
+    if (button) {
+        button.disabled = false;
+        button.textContent = "Publish All Valid Jobs";
+    }
+
+    alert(
+        `Bulk publishing complete.\n\n` +
+        `Published: ${successCount}\n` +
+        `Failed: ${failedCount}`
+    );
+}
+
+document
+    .getElementById("proceedMasterJob")
+    ?.addEventListener("click", parseAllMasterJobs);
+
+document
+    .getElementById("publishAllJobs")
+    ?.addEventListener("click", publishAllBulkJobs);
+
+document
+    .getElementById("clearMasterJobs")
+    ?.addEventListener("click", function() {
+
+        const masterBox =
+            document.getElementById("masterJobBox");
+
+        const preview =
+            document.getElementById("bulkJobPreview");
+
+        if (masterBox) {
+            masterBox.value = "";
+        }
+
+        bulkParsedJobs = [];
+
+        if (preview) {
+            preview.style.display = "none";
+        }
+    });
+
 
 // =====================================================
 // EDIT JOB
+// =====================================================
 // =====================================================
 
 function editJob(id){
