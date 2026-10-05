@@ -43,7 +43,7 @@ jobs:
       - name: Check generated changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain -- jobs sitemap.xml)" ]; then
+          if [ -n "$(git status --porcelain -- jobs naukrihub-sitemap.xml)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -54,7 +54,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add jobs sitemap.xml
+          git add jobs naukrihub-sitemap.xml
           git commit -m "Auto-update job pages and sitemap"
           git push
 
@@ -87,6 +87,12 @@ jobs:
             --only hosting \
             --project naukrihub-61299 \
             --non-interactive
+
+      - name: Test Google Indexing API
+        env:
+          GOOGLE_INDEXING_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_INDEXING_SERVICE_ACCOUNT }}
+        run: |
+          node notify-indexing.js "https://naukrihub-61299.web.app/jobs/industrial-engineer-X6HIyx177izstyiMFr1v.html"
 
       - name: Remove temporary service account
         if: always()
