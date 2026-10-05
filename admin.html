@@ -716,7 +716,7 @@ textarea:focus{
         <div class="section-title">
 
             <h2>
-                ðŸŸ¡ Pending Jobs
+                &#x1F7E1; Pending Jobs
             </h2>
 
             <span
@@ -745,7 +745,7 @@ textarea:focus{
         <div class="section-title">
 
             <h2>
-                âœ… Approved Jobs
+                &#x2705; Approved Jobs
             </h2>
 
             <span
@@ -774,7 +774,7 @@ textarea:focus{
         <div class="section-title">
 
             <h2>
-                âŒ Rejected Jobs
+                &#x274C; Rejected Jobs
             </h2>
 
             <span
@@ -839,7 +839,7 @@ Location: Goa
 Category: Quality
 Experience: 2-5 Years
 Job Type: Full Time
-Salary: â‚¹4-6 LPA
+Salary: &#8377;4-6 LPA
 Job Description:
 Responsible for quality inspection and process improvement.
 Apply URL: https://example.com/apply
@@ -852,7 +852,7 @@ Location: Pune
 Category: Engineering
 Experience: 1-3 Years
 Job Type: Full Time
-Salary: â‚¹3-5 LPA
+Salary: &#8377;3-5 LPA
 Job Description:
 Manage production activities and coordinate with teams.
 Apply URL: https://example.com/apply2
@@ -1086,7 +1086,7 @@ Application Email: jobs@example.com"
                 <input
                     type="text"
                     id="jobSalary"
-                    placeholder="â‚¹25,000 - â‚¹40,000"
+                    placeholder="&#8377;25,000 - &#8377;40,000"
                 >
 
             </div>
@@ -1203,7 +1203,7 @@ Application Email: jobs@example.com"
                 type="button"
                 onclick="closeDetails()"
             >
-                Ã—
+                &times;
             </button>
 
         </div>
@@ -1904,14 +1904,14 @@ function renderJobList(
                         class="approve-btn"
                         data-approve-id="${job.id}"
                     >
-                        âœ“ Approve
+                        &#x2713; Approve
                     </button>
 
                     <button
                         class="reject-btn"
                         data-reject-id="${job.id}"
                     >
-                        âœ• Reject
+                        &#x2715; Reject
                     </button>
 
                 `;
@@ -1954,7 +1954,7 @@ function renderJobList(
                         class="approve-btn"
                         data-approve-id="${job.id}"
                     >
-                        âœ“ Approve
+                        &#x2713; Approve
                     </button>
 
                     <button
@@ -1985,25 +1985,25 @@ function renderJobList(
                             job.company
                         )}
 
-                        â€¢
+                        &bull;
 
                         ${escapeHTML(
                             job.location
                         )}
 
-                        â€¢
+                        &bull;
 
                         ${escapeHTML(
                             job.category
                         )}
 
-                        â€¢
+                        &bull;
 
                         ${escapeHTML(
                             job.experience
                         )}
 
-                        â€¢
+                        &bull;
 
                         ${escapeHTML(
                             job.type
@@ -2014,7 +2014,7 @@ function renderJobList(
 
                     <p>
 
-                        ðŸ’°
+                        &#x1F4B0;
 
                         ${escapeHTML(
                             job.salary ||
@@ -2205,7 +2205,7 @@ function viewDetails(id){
 
         <p>
 
-            ðŸ“
+            &#x1F4CD;
             <strong>
                 Location:
             </strong>
@@ -2219,7 +2219,7 @@ function viewDetails(id){
 
         <p>
 
-            ðŸ’¼
+            &#x1F4BC;
             <strong>
                 Category:
             </strong>
@@ -2233,7 +2233,7 @@ function viewDetails(id){
 
         <p>
 
-            ðŸŽ“
+            &#x1F393;
             <strong>
                 Experience:
             </strong>
@@ -2247,7 +2247,7 @@ function viewDetails(id){
 
         <p>
 
-            ðŸ•
+            &#x1F550;
             <strong>
                 Job Type:
             </strong>
@@ -2261,7 +2261,7 @@ function viewDetails(id){
 
         <p>
 
-            ðŸ’°
+            &#x1F4B0;
             <strong>
                 Salary:
             </strong>
@@ -2312,7 +2312,7 @@ function viewDetails(id){
 
                 <p>
 
-                    ðŸ”—
+                    &#x1F517;
                     <strong>
                         Apply URL:
                     </strong>
@@ -2339,7 +2339,7 @@ function viewDetails(id){
 
                 <p>
 
-                    ðŸ“§
+                    &#x1F4E7;
                     <strong>
                         Application Email:
                     </strong>
@@ -2400,7 +2400,7 @@ function viewDetails(id){
                         class="approve-btn"
                         id="modalApprove"
                     >
-                        âœ“ Approve
+                        &#x2713; Approve
                     </button>
 
 
@@ -2408,7 +2408,7 @@ function viewDetails(id){
                         class="reject-btn"
                         id="modalReject"
                     >
-                        âœ• Reject
+                        &#x2715; Reject
                     </button>
 
                 `
@@ -3379,7 +3379,7 @@ function renderBulkPreview() {
                     font-size:13px;
                 ">
                     ${job.errors.map(error =>
-                        `<div>â€¢ ${error}</div>`
+                        `<div>&bull; ${error}</div>`
                     ).join("")}
                 </div>
               `
@@ -3407,7 +3407,7 @@ function renderBulkPreview() {
                     color:#4b5563;
                 ">
                     ${job.company || "Company missing"}
-                    â€¢
+                    &bull;
                     ${job.location || "Location missing"}
                 </div>
 
@@ -3417,7 +3417,7 @@ function renderBulkPreview() {
                     font-weight:700;
                     color:${job.valid ? "#166534" : "#b91c1c"};
                 ">
-                    ${job.valid ? "âœ“ Ready to publish" : "âœ• Cannot publish"}
+                    ${job.valid ? "&#x2713; Ready to publish" : "&#x2715; Cannot publish"}
                 </div>
 
                 ${errors}
