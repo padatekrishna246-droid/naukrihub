@@ -1501,7 +1501,7 @@ ${sitemapEntries}
     const sitemapPath =
         path.join(
             __dirname,
-            "sitemap.xml"
+            "naukrihub-sitemap.xml"
         );
 
     fs.writeFileSync(
@@ -1532,3 +1532,4 @@ generateJobs().catch((error) => {
 
     process.exitCode = 1;
 });
+
