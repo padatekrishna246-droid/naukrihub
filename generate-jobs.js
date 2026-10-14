@@ -1498,17 +1498,24 @@ ${sitemapEntries}
 </urlset>
 `;
 
-    const sitemapPath =
-        path.join(
+   
+    // Keep both sitemap files synchronized
+    for (const sitemapName of [
+        "sitemap.xml",
+        "naukrihub-sitemap.xml"
+    ]) {
+        const sitemapPath = path.join(
             __dirname,
-            "naukrihub-sitemap.xml"
+            sitemapName
         );
 
-    fs.writeFileSync(
-        sitemapPath,
-        sitemapXML,
-        "utf8"
-    );
+        fs.writeFileSync(
+            sitemapPath,
+            sitemapXML,
+            "utf8"
+        );
+    }
+
 
     console.log("");
 
