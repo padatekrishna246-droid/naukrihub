@@ -108,8 +108,10 @@ async function generateJobs() {
     console.log(`? ${snapshot.size} approved jobs found`);
 
     const sitemapURLs = [];
+    const directoryJobs = [];
 
     sitemapURLs.push(`${BASE_URL}/`);
+    sitemapURLs.push(`${BASE_URL}/all-jobs.html`);
 
     for (const doc of snapshot.docs) {
 
@@ -1470,6 +1472,7 @@ a {
         );
 
         sitemapURLs.push(jobURL);
+        directoryJobs.push({ title, company, location, jobURL });
     }
 
     /*
@@ -1477,6 +1480,63 @@ a {
     GENERATE SITEMAP.XML
     ==========================================
     */
+
+
+    // Static, crawlable links: no client-side JavaScript is needed to find jobs.
+    // Deterministic output prevents unnecessary commits on scheduled runs.
+    const jobListHTML = directoryJobs
+        .sort((a, b) => a.title.localeCompare(b.title) || a.jobURL.localeCompare(b.jobURL))
+        .map((job) => [
+            '    <li class="job-card">',
+            '      <h2><a href="' + escapeHTML(job.jobURL.replace(BASE_URL, '')) + '">' + escapeHTML(job.title) + '</a></h2>',
+            '      <p>' + escapeHTML(job.company) + ' · ' + escapeHTML(job.location) + '</p>',
+            '    </li>'
+        ].join("\n"))
+        .join("\n");
+
+    const directoryHTML = [
+        '<!doctype html>',
+        '<html lang="en">',
+        '<head>',
+        '  <meta charset="utf-8">',
+        '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+        '  <title>All Jobs in India | NaukriHub</title>',
+        '  <meta name="description" content="Browse current job opportunities across India on NaukriHub.">',
+        '  <meta name="robots" content="index, follow">',
+        '  <link rel="canonical" href="' + BASE_URL + '/all-jobs.html">',
+        '  <style>',
+        '    * { box-sizing: border-box; }',
+        '    body { margin: 0; font-family: system-ui, Arial, sans-serif; color: #152239; background: #f4f7fb; }',
+        '    header { background: #132947; padding: 20px max(20px, calc((100vw - 1000px)/2)); }',
+        '    header a { color: white; font-weight: 800; text-decoration: none; }',
+        '    main { max-width: 1000px; margin: 38px auto; padding: 0 20px 40px; }',
+        '    h1 { font-size: clamp(26px, 5vw, 38px); margin-bottom: 6px; }',
+        '    .intro { color: #52647a; margin-bottom: 26px; }',
+        '    .job-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }',
+        '    .job-card { background: #fff; border: 1px solid #dde5ed; border-radius: 12px; padding: 18px 22px; }',
+        '    .job-card h2 { font-size: 18px; margin: 0 0 7px; }',
+        '    .job-card a { color: #1260b9; text-decoration: none; }',
+        '    .job-card a:hover { text-decoration: underline; }',
+        '    .job-card p { color: #53667d; margin: 0; }',
+        '    footer { max-width: 1000px; margin: 0 auto; padding: 20px; color: #53667d; }',
+        '  </style>',
+        '</head>',
+        '<body>',
+        '  <header><a href="/">NaukriHub</a></header>',
+        '  <main>',
+        '    <h1>All Jobs</h1>',
+        '    <p class="intro">Explore ' + directoryJobs.length + ' approved job opportunities. Open any job to view the complete details and apply.</p>',
+        '    <ul class="job-list">',
+        jobListHTML,
+        '    </ul>',
+        '  </main>',
+        '  <footer><a href="/">Back to NaukriHub homepage</a></footer>',
+        '</body>',
+        '</html>'
+    ].join("\n");
+
+    fs.writeFileSync(path.join(__dirname, "all-jobs.html"), directoryHTML, "utf8");
+    console.log("Created: all-jobs.html (" + directoryJobs.length + " jobs)");
 
     const sitemapEntries =
         sitemapURLs
